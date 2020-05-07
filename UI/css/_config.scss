@@ -1,0 +1,420 @@
+$primary-color: #17a2b8;
+$dark-color: #343a40;
+$light-color: #f4f4f4;
+$danger-color: #dc3545;
+$success-color: #28a745;
+
+// Set text color based on background color
+@function set-text-color($bg-color){
+  @if (lightness($bg-color) > 55) {
+    @return #333;
+  } @else {
+    @return #fff;
+  }
+}
+// set Background Color
+@mixin set-background-color($color){
+  background-color: $color;
+  color: set-text-color($color);
+}
+
+/****************************************************
+* Normalize
+****************************/
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+}
+
+a{
+  text-decoration: none;
+}
+textarea{
+  resize: none;
+}
+ul{
+  list-style-type: none;
+}
+img, video{
+  width: 100%;
+  text-align: center;
+}
+// Globals
+.container{
+  margin: auto;
+  width: 80%;
+}
+.clearfix{
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
+.line{
+  width: 100%;
+  height: 1px;
+  padding-bottom: 1rem ;
+  margin-bottom: 1.2rem ;
+  border-bottom: 1px solid $dark-color;
+}
+.flex-wrapper{
+  display: flex;
+  justify-content: center;
+}
+.grid-wrapper{
+  display: grid;
+  column-gap: 10px;
+}
+.section{
+  padding: 4rem 0rem;
+  margin: auto;
+  .section-title{
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 1rem auto;
+  }
+}
+#signup-form, #login-form{
+  display: block;
+  width: 60%;
+  .text-lead{
+    display: block;
+    // background-color: $primary-color;
+    color: $primary-color;
+  }
+  #signup-btn, #login-btn{
+    padding: 1rem 1.75rem;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+// Cards
+.card{
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px #ccc;
+  margin: .75rem .25rem;
+  .card-image{
+    text-align: left;
+    width: 100%;
+    margin-bottom: .75rem;
+    color: $primary-color;
+  }
+  .card-title{
+    font-size: 1.2rem;
+    font-weight: bolder;
+    text-align: left;
+    margin: .25rem auto;
+    color: $success-color;
+  }
+  .card-content{
+    text-align: left;
+    margin: 1rem auto;
+  }
+
+}
+
+// Credits
+.credit{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: 10px;
+  padding: 1rem;
+  .person{
+    border-radius: 50%;
+    box-shadow: 0px 2px 3px #eee;
+    margin: auto;
+  }
+  .message{
+    padding: 1rem 1.75rem;
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    line-height: 1.8;
+    .source{
+      margin-top: 1.25rem;
+      font-weight: bolder;
+    }
+    .position{
+      display: block;
+      font-size: .75rem;
+      font-style: italic;
+    }
+  }
+}
+
+.start-btn{
+  display: block;
+  margin: 1.25rem auto;
+  text-align: center;
+  padding: 1.75rem 1rem;
+  font-weight: bold;
+}
+.clip{
+    // clip-path: polygon(0% 0%, 75% 0%, 90% 0, 40% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0, 100% 67%, 80% 100%, 0% 100%);
+    background-color: $light-color;  
+    width: 100%;
+    padding: 7rem 0rem;
+}
+/****************************************************
+* Utility
+****************************/
+
+// Paddings & Margins
+$sizes: (1, 2, 3, 4);
+@each $size in $sizes {
+  // All round padding
+  .p-#{$size}{
+    padding: #{$size}rem;
+  }
+  // Padding top and bottom
+  .py-#{$size}{
+    padding: #{$size}rem 0rem;
+  }
+  // Padding left and right
+  .px-#{$size}{
+    padding: 0rem #{$size}rem;
+  }
+  // Padding right
+  .pr-#{$size}{
+    padding-right: #{$size}rem;
+  }
+
+  // All round margin
+  .m-#{$size}{
+    margin: #{$size}rem;
+  }
+  // Margin top and bottom
+  .my-#{$size}{
+    margin: #{$size}rem auto;
+  }
+  // margin left and right
+  .mx-#{$size}{
+    margin: 0rem #{$size}rem;
+  }
+
+  // margin bottom
+  .mb-#{$size}{
+    margin-bottom: #{$size}rem;
+  }
+}
+
+// Alerts
+.alert{
+  padding: .75rem;
+  margin: 1rem auto;
+  display: block;
+  text-align: left;
+  &-dark{
+    @include set-background-color($dark-color)
+  }
+
+  &-primary{
+    @include set-background-color($primary-color)
+  }
+  &-light{
+    @include set-background-color($light-color)
+  }
+  &-success{
+    @include set-background-color($success-color)
+  }
+
+  &-danger{
+    @include set-background-color($danger-color)
+  }
+}
+
+// Backgrounds
+.bg{
+  &-dark{
+    @include set-background-color($dark-color)
+  }
+
+  &-primary{
+    @include set-background-color($primary-color)
+  }
+  &-light{
+    @include set-background-color($light-color)
+  }
+  &-success{
+    @include set-background-color($success-color)
+  }
+
+  &-danger{
+    @include set-background-color($danger-color)
+  }
+}
+
+
+// .Buttons
+.btn{
+  border-radius: 6px;
+  cursor: pointer;
+
+   &-dark{
+    @include set-background-color($dark-color);
+    &:hover{
+      background-color: lighten($dark-color, 5%);
+    }
+  }
+  &-primary{
+    @include set-background-color($primary-color);
+    &:hover{
+      background-color: lighten($primary-color, 5%);
+    }
+  }
+  &-light{
+    @include set-background-color($light-color);
+    &:hover{
+      background-color: lighten($light-color, 5%);
+    }
+  }
+  &-success{
+    @include set-background-color($success-color);
+    &:hover{
+      background-color: lighten($success-color, 5%);
+    }
+  }
+}
+
+// Forms
+.form{
+  input, select{
+    padding: .5rem .6rem;
+  }
+  .form-group{
+    margin: 1rem 0rem;
+    label{
+      display: block;
+      margin-bottom: .5rem;;
+    }
+    .form-control{
+      width: 100%;
+      border: 1px solid #443;
+      outline: 0;
+      padding: 10px 12px;
+    }
+   
+  }
+}
+
+// Modals
+.modal{
+  display: none;
+  position: fixed;
+  margin: auto;
+  top: 0rem;
+  left: 0rem;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: $dark-color;
+  opacity: .7;
+  &.modal-show{
+    display: block;
+  }
+  .modal-content{
+    
+    width: 80%;
+    display: block;
+    border-radius: 10px;
+    margin: 1rem auto;
+    padding: 1.75rem 1rem;
+    text-align: left;
+    color: $light-color;
+    opacity: 1;
+    // background-color: $dark-color;
+
+  }
+
+}
+// Tables
+table.table{
+  width: 100%;
+  display: block;
+  margin: auto;
+
+  thead{
+    tr{
+      background-color: #ddd;
+      th{
+        padding: 1rem;
+      }
+    }
+  }
+
+  tbody{
+    tr{ 
+      padding: 2rem 0rem;
+      text-align: left;
+      &:nth-of-type(even) {
+        background-color: $light-color;
+      }
+    }
+
+    td{
+      padding: 1rem;
+      height: 12px;
+    }
+  }
+}
+
+// Texts
+.text{
+  &-lead{
+    font-size: 3rem;
+    font-weight: bolder;
+    margin: .75rem auto;
+  }
+  &-sub{
+    font-size: 1.2rem;
+    margin: .25rem auto;
+  }
+  &-dark{
+    @include set-background-color($dark-color)
+  }
+
+  &-primary{
+    @include set-background-color($primary-color);
+    font-size: 2rem;
+  }
+  &-light{
+    @include set-background-color($light-color)
+  }
+  &-success{
+    @include set-background-color($success-color)
+  }
+
+  &-danger{
+    @include set-background-color($danger-color)
+  }
+}
+
+// Social media icons
+.fa-facebook{
+  color: #3b5998;
+}
+.fa-twitter{
+  color: #38a1f3;
+}
+.fa-instagram{
+  color: #3f729b;
+}
+.fa-youtube{
+  color: #c4302b;
+}
+.fa-linkedin{
+  color: #0077b5;
+}
+
+/****************************************************
+* Next one here
+****************************/

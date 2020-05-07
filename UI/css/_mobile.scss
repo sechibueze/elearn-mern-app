@@ -1,0 +1,85 @@
+@media (max-width: 480px){
+  .container{
+    width: 94%;
+  }
+
+  .banner{
+    .overlay{
+      .banner-action-buttons, .banner-content{
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px){
+  .banner{
+    .overlay{
+      .banner-action-buttons{
+        .btn{
+          display: block;
+          width: 80%;
+          margin: 1.25rem auto;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 760px){
+  .navbar{
+    .navlinks-toggler{
+      display: block;
+      float: right;
+      line-height: 1.4;
+    }
+    .navlinks{
+      display: none;
+      &.show{
+        display: block;
+        float: none;
+        .navlink{
+          display: block;
+          padding: .75rem 0rem;
+          margin: auto;
+          text-align: center;
+        }
+        &::before{
+          display: block;
+          clear: both;
+          content: '';
+        }
+      }
+    }
+    
+  }
+  .flex-wrapper{
+    display: block;
+    margin: auto;
+  }
+  .grid-wrapper{
+    display: block;
+    margin: auto;
+  }
+  .credit{
+    display: block;
+    img{
+      width: 150px;
+      text-align: center;
+      margin: auto;
+      display: block;
+    }
+  }
+  // 
+  .classroom-wrapper{
+    width: 96%;
+    display: block;
+    margin: auto;
+    .header{
+      display: block;
+      width: 96%;
+      margin: auto;
+    }
+  }
+}

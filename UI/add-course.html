@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elearning</title>
+  <link href='./css/fa.min.css' rel='stylesheet' />
+  <link href='./css/main.css' rel='stylesheet' />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-dark clearfix">
+    <div class="container">
+      <a class="logo clearfix" href="/">
+        <span class="logo-image fa fa-lightbulb-o fa-2x"></span>
+        <span class="logo-name">eLearn</span>
+      </a>
+      <span class="navlinks-toggler fa fa-bars fa-2x"></span>
+      <div class="navlinks show">
+        <a href="/courses.html" class="navlink">Courses</a>
+        <a href="/signup.html" class="navlink fa fa-users"> &nbsp; Signup</a>
+        <a href="/login.html" class="navlink fa fa-sign-in"> &nbsp; Login</a>
+        <a href="/dashboard.html" class="navlink fa fa-dashboard"> &nbsp; Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  <h1> Add a Course</h1>
+  <div class="container">
+    <form class="form">
+      <div class="form-group">
+        <input type="text" name="course_title" class="form-control" placeholder="Add Course title" />
+        <textarea name="description" class="form-control" cols="25" rows="5"></textarea>
+        <button type="submit" class="btn btn-success btn-sm btn-block fa-plus"> &nbsp; Add </button>
+      </div>
+    </form>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Course Title</th>
+          <th>Type</th>
+          <th>Duration</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>Lorem ipsum dolor sit amet consectetur.</td>
+          <td>Video</td>
+          <td>02:08mins</td>
+          <td><a href="/edit-course.html"><span class="fa fa-pencil"></span></a></td>
+          <td><a href="/delete-lesson.html"><span class="fa fa-close"></span></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>

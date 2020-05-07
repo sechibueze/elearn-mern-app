@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elearning</title>
+  <link href='./css/fa.min.css' rel='stylesheet' />
+  <link href='./css/main.css' rel='stylesheet' />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-dark clearfix">
+    <div class="container">
+      <a class="logo clearfix" href="/">
+        <span class="logo-image fa fa-lightbulb-o fa-2x"></span>
+        <span class="logo-name">eLearn</span>
+      </a>
+      <span class="navlinks-toggler fa fa-bars fa-2x"></span>
+      <div class="navlinks show">
+        <a href="/courses.html" class="navlink">Courses</a>
+        <a href="/signup.html" class="navlink">Signup</a>
+        <a href="/login.html" class="navlink">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <form class="form " name="signup-form" id="signup-form">
+      <h2 class="text-lead fa fa-users">&nbsp; Signup</h2>
+      <p class="text-sub">Join our community of passionate learners</p>
+      <sup>*</sup> means Required
+      <div class="form-group">
+        <label for="name">Name<sup>*</sup></label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="John Smith" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email<sup>*</sup></label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="jsmith@js.com" />
+        <small>If you want Gravatar, use an associated email account</small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password<sup>*</sup></label>
+        <input type="password" name="password" class="form-control" id="password"
+          placeholder="minimun of 8characters" />
+      </div>
+
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password<sup>*</sup></label>
+        <input type="password" name="confirm_password" class="form-control" id="confirm_password"
+          placeholder="Confirm password" />
+      </div>
+
+      <button type="submit" id="signup-btn" class="btn btn-primary fa fa-user"> &nbsp; Signup </button>
+
+      <p class="my-2">Already has an account? <a href="/login.html">Login</a> </p>
+    </form>
+  </div>
+
+</body>
+
+</html>

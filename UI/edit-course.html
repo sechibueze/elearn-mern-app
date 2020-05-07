@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elearning</title>
+  <link href='./css/fa.min.css' rel='stylesheet' />
+  <link href='./css/main.css' rel='stylesheet' />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-dark clearfix">
+    <div class="container">
+      <a class="logo clearfix" href="/">
+        <span class="logo-image fa fa-lightbulb-o fa-2x"></span>
+        <span class="logo-name">eLearn</span>
+      </a>
+      <span class="navlinks-toggler fa fa-bars fa-2x"></span>
+      <div class="navlinks show">
+        <a href="/courses.html" class="navlink">Courses</a>
+        <a href="/signup.html" class="navlink fa fa-users"> &nbsp; Signup</a>
+        <a href="/login.html" class="navlink fa fa-sign-in"> &nbsp; Login</a>
+        <a href="/dashboard.html" class="navlink fa fa-dashboard"> &nbsp; Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="">
+      <a href="/add-course.html"><span class="fa fa-backspace fa-2x my-1"> Go back</span></a>
+
+    </div>
+    <form class="form">
+      <button type="submit" class="btn btn-success btn-sm fa-plus"> &nbsp; Update </button>
+      <button class="btn btn-primary p-1">Publish</button>
+      <div class="form-group">
+        <input type="text" name="course_title" class="form-control my-1" value="Course title" />
+        <label for="description">Description</label>
+        <textarea name="description" class="form-control" cols="25" rows="5"></textarea>
+      </div>
+    </form>
+    <table class="table">
+      <button class="btn btn-primary p-1">Add lesson</button>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Lesson Title</th>
+          <th>Type</th>
+          <th>Duration</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>Lorem ipsum dolor sit amet consectetur.</td>
+          <td>Video</td>
+          <td>02:08mins</td>
+          <td><a href="/edit-lesson.html"><span class="fa fa-pencil"></span></a></td>
+          <td><a href="/delete-lesson.html"><span class="fa fa-close"></span></a></td>
+        </tr>
+
+        <tr>
+          <td>02</td>
+          <td>Lorem ipsum dolor sit amet consectetur.</td>
+          <td>Video</td>
+          <td>02:08mins</td>
+          <td><a href="/edit-lesson.html"><span class="fa fa-pencil"></span></a></td>
+          <td><a href="/delete-lesson.html"><span class="fa fa-close"></span></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal">
+    <div class="modal-content">
+      <h1 class="bg-dark"> Modal content</h1>
+      <form class="form" enctype="multipart/form-data">
+        <p class="my-1">
+          <select name="lesson_type" class="">
+            <option value="video">Video</option>
+            <option value="presentation">Presentation</option>
+            <option value="link">Link resource</option>
+            <option value="link">Attachment</option>
+          </select>
+        </p>
+        <p>
+          <input type="text" name="lesson_title" placeholder="Lesson title" />
+        </p>
+        <p class="my-1">
+          <input type="file" name="lesson_title" name="attachment" />
+        </p>
+        <p>
+          <input type="url" name="lesson_link" placeholder="External link" />
+        </p>
+        <p class="my-1">
+          <input type="duration" name="lesson_duration" placeholder="Lesson duration" />
+        </p>
+        <p>
+          <button class="btn btn-primary p-1 my-1">Add Lesson</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>
