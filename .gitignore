@@ -1,3 +1,4 @@
 /node_modules
 SCOPE.MD
 .env
+test.js
