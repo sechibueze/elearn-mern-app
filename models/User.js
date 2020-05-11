@@ -23,6 +23,6 @@ const UserSchema = new Schema({
     type: Array,
     default: ['student']
   }
-}, { timestamp: true });
+}, { timestamps: true });
 
 module.exports = User = mongoose.model('user', UserSchema);
