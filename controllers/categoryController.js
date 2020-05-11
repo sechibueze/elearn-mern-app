@@ -89,7 +89,7 @@ const deleteCategory = (req, res ) => {
   const categoryId = req.params.categoryId;
   Category.findOneAndRemove({_id: categoryId})
     .then(result => {
-      console.log('results :: ', result)
+      // console.log('results :: ', result)
 
       return res.status(200).json({
         status: true,
