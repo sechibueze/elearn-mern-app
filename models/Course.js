@@ -32,15 +32,16 @@ const CourseSchema = new Schema({
   lessons: [{
     type: {
       type: String,
-      require: true
+      require: true,
+      default: 'video'
     },
     access: {
       type: String,
       required: true,
       default: 'public'
     },
-    contentUrl: {
-      type: String,
+    content: {
+      type: Object,
       required: true,
     },
     note: {

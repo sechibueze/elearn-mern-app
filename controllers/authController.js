@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
-const authReducer = require('../_utils/authReducer');
+// const authReducer = require('../_utils/authReducer');
 
+// Signup/register new users
 function signup(req, res) {
   
   const errorsContainer = validationResult(req);
@@ -58,6 +59,7 @@ function signup(req, res) {
  
 }
 
+// Login existing users
 function login(req, res){
   const errorsContainer = validationResult(req);
   if (!errorsContainer.isEmpty()) {
@@ -98,6 +100,7 @@ function login(req, res){
   });
 }
 
+// Get loggedin users's data by their token
 function getUserByToken(req, res) {
   const currentUserId = req.authUser.id;
   const filter = { _id : currentUserId };

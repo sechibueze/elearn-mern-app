@@ -10,6 +10,7 @@ function manageUsersAuthByAdmin(req, res) {
   const { action } = req.body;
   const filter = { _id: userId };
   User.findOne(filter)
+    .select('-password')
     .then(user => {
       if (!user) return res.status(400).json({ status: false, error: 'No such record found' });
       // Change User Priviledge
@@ -42,6 +43,7 @@ function toggleAuthAdmin(req, res) {
   const filter = { _id: userId };
 
   User.findById(filter)
+    .select('-password')
     .then(user => {
 
       if (!user) return res.status(400).json({ status: false, error: 'No such record found' });

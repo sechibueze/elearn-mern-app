@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const { cloudinaryUploader, updateCloudinaryMediaContent } = require('../config/cloudinaryConfig');
+const { getDataURI } = require('../_utils/dataURI');
 const Category = require('../models/Category');
 
 const createCategory = (req, res ) => {
@@ -10,23 +12,31 @@ const createCategory = (req, res ) => {
     });
   }
   // Passed all validateions
-  const { title, description} = req.body;
-  const {public_id, secure_url} = req.file;
-  let categoryData = {title, description};
-  // categoryData.image = { public_id, secure_url };
-  categoryData.image = {};
-  categoryData.image.imageUrl = secure_url;
-  categoryData.image.publicId = public_id;
   
-  let newCategory = new Category(categoryData);
-  newCategory.save(err => {
-    if(err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories' });
-    return res.status(201).json({
-      status: true,
-      message: 'Category created',
-      data: newCategory
+  const dataURI = getDataURI(req);
+  cloudinaryUploader.upload(dataURI)
+    .then(result => {
+      const { title, description } = req.body;
+      let categoryData = { title, description };
+      categoryData.image = {};
+      categoryData.image.imageUrl = result.secure_url;
+      categoryData.image.publicId = result.public_id;
+
+      let newCategory = new Category(categoryData);
+      newCategory.save(err => {
+        if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories' });
+        return res.status(201).json({
+          status: true,
+          message: 'Category created',
+          data: newCategory
+        })
+      })
     })
-  })
+    .catch(err => {
+      if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories' });
+
+    })
+  
 };
 const getAllCategory = (req, res ) => {
   Category.find({})
@@ -61,16 +71,19 @@ const updateCategoryById = (req, res ) => {
   const categoryId = req.params.categoryId;
   // Passed all validateions
   const { title, description } = req.body;
-  const { public_id, secure_url } = req.file;
+  const canUpdateCategoryImageData = getDataURI(req) || req.body.category_image;
   
   Category.findOne({_id: categoryId})
-    .then(categoryItem => {
+    .then(async categoryItem => {
+      if(!categoryItem) return res.status(400).json({ status: false, error: 'Server error:: Could not update categories' });
 
       if (title) categoryItem.title = title;
       if (description) categoryItem.description = description;
-      if (public_id) categoryItem.image.publicId = public_id;
-      if (secure_url) categoryItem.image.imageUrl = secure_url;
-      // console.log('cate item', categoryItem)
+
+      if (canUpdateCategoryImageData) {
+        const result = await updateCloudinaryMediaContent(categoryItem.image.publicId, canUpdateCategoryImageData);
+        categoryItem.image.imageUrl = result.secure_url;
+      }
       categoryItem.save(err => {
         return res.status(200).json({
           status: true,
