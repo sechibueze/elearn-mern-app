@@ -19,3 +19,5 @@ function checkTeacher(req, res, next) {
     });
   }
 }
+
+module.exports = checkTeacher;
