@@ -3,4 +3,4 @@ SCOPE.MD
 .env
 test.js
 NOTE.MD
-client/
+client/node_modules

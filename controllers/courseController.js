@@ -47,6 +47,16 @@ const getAllCoursesByQueryFilter = (req, res) => {
   console.log('filter', filter)
 
   Course.find(filter)
+    .populate({
+      path: 'categoryId',
+      select: ['title'],
+      model: Category
+    })
+    .populate({
+      path: 'userId',
+      select: ['name'],
+      model: User
+    })
     .then(courses => {
       return res.status(200).json({
         status: true,

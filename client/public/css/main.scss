@@ -1,0 +1,252 @@
+@import 'config.scss';
+
+// Navbar
+.navbar{
+  display: block;
+  padding: .75rem 0rem;
+  .logo, .navlinks{
+    display: inline;
+    color: $light-color;
+  }
+  .logo{
+    float: left;
+    .logo-name{
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+  }
+  .navlinks-toggler{
+    display: none;
+  }
+  .navlinks{
+    float: right;
+    line-height: 2.8;
+  
+    .navlink{
+      text-decoration: none;
+      color: $light-color;
+      padding: .25rem;
+      margin: auto 1rem;
+      cursor: pointer;
+      &:hover{
+        opacity: .8;
+      }
+    }
+    }
+  
+}
+
+// baneer
+.banner{
+  width: 100%;
+  height: 80vh;
+  max-height: 80vh;
+  position: relative;
+  background-image: url(/img/learning.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .overlay{
+    width: 100%;
+    height: 100%;
+    background-color: $dark-color;
+    position: absolute;
+    z-index: 9;
+    left: 0px;
+    top: 0px;
+    opacity: .7;
+    .banner-content, .banner-action-buttons{
+      width: 70%;
+      display: block;
+      margin: auto;
+    }
+    .banner-content{
+      text-align: left;
+      color: $light-color;
+      padding: 1.75rem 1rem;
+    }
+    .banner-action-buttons{
+      text-align: center;
+      .btn{
+        padding: 1rem 1.75rem;
+        margin: auto 1rem;
+        font-weight: bolder;
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+.home-cta{
+  background-color: $dark-color;
+    .home-cta-grid{
+      grid-template-columns: 2fr 3fr;
+        .home-cta-content{
+          margin-left: 1rem;
+          width: 100%;
+          padding: 0rem 1.75rem;
+          .btn{
+            padding: 1.25rem 1.75rem;
+            font-size: 1.2rem;
+            font-weight: bolder;
+          }
+
+        }
+    }
+}
+
+// Courses
+.search-input{
+  padding: 1rem 1.25rem;
+  width: 100%;
+  display: block;
+  font-size: 1.75rem;
+  margin: 1rem auto;
+  text-align: left;
+  border: none;
+  &:focus{
+    background-color: $dark-color;
+    color: $light-color;
+  }
+}
+
+.course-card-flex-wrapper{
+  // TODO
+  // Look for number of items to display per row
+  flex-direction: row;
+  flex-wrap: wrap;
+  .course-card{
+    flex-basis: 25%;
+  }
+  .price{
+    .price-figure, .price-sale{
+      display: block;
+      text-align: center;
+      margin: .25rem auto;
+
+    }
+    .price-sale{
+      text-decoration: line-through;;
+    }
+  }
+  .course-card-cta{
+    
+    .buynow-btn , .add2cart-btn{
+      display: block;
+      margin: 1rem auto;
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+}
+
+// Classroom
+.classroom-wrapper{
+  display: block;
+  width: 70%;
+  height: 100vh;
+  margin: auto;
+  header{
+    display: block;
+    position: fixed;
+    top: 72px; //Navbar height
+    background-color: #fff;
+    
+    width: 70%; //same as .classroom-wrapper
+    .video-player{
+      width: 100%;
+      height: auto;
+      margin: auto;
+      text-align: center;
+    }
+    .course-title{
+      padding: .75rem .5rem;
+    }
+    .classroom-actions{
+      display: block;
+      overflow-x: scroll;
+      padding: .75rem .5rem;
+
+      li{
+        display: inline;
+        cursor: pointer;
+        text-align: left;
+        margin: auto .25rem;
+        a{
+          color: $dark-color;
+        }
+      }
+    }
+  }
+  .lesson-playlist{
+    display: block;
+    width: 100%;
+    margin: auto;
+    padding-top: 360px; // height of Navbar plus header player
+    .lesson-item{
+      // display:grid ;
+      // grid-template-columns: 1fr 3fr;
+      // grid-column: 10px;
+      margin: .25rem auto;
+      .lesson-image{
+        text-align: center;
+        margin: auto;
+      }
+      .lesson-item-content{
+        display: flex;
+        justify-content: flex-start;
+        padding: 1rem .25rem;
+        .lesson-id{
+          margin-right: .75rem;
+        }
+        .lesson-status{
+          margin-left: .75rem;
+        }
+
+      }
+      
+      &:hover{
+        border: 1px solid $primary-color;
+      }
+      &.current{
+        background-color: $dark-color;
+        color: $light-color;
+      }
+
+    }
+  }
+}
+
+// Single course Item page
+.course-item{
+  .course-overview{
+    text-align: left;
+  }
+  .card{
+      .card-list{
+      li{
+        margin: .85rem 0.75rem;
+        text-align: left;
+        display: block;
+      }
+    }
+  }
+  .course-data{
+    span{
+      display: inline;
+      margin: .75rem 1rem;
+    }
+  }
+}
+.btn-block{
+  display: block;
+  margin: 1rem auto;
+}
+.btn-sm{
+  padding: .75rem 1rem;
+}
+.btn-md{
+  padding: 1rem 1.5rem;
+}
+@import 'mobile.scss';

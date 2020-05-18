@@ -6,7 +6,12 @@ config(); //load .env
 initializeDB();
 
 const port = process.env.PORT || 8000;
-app.use(express.json());
+app.use(express.json({ extended: true }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 const authRoute = require('./routes/api/authRoute');
 const coursesRoute = require('./routes/api/coursesRoute');
 const usersRoute = require('./routes/api/usersRoute');
