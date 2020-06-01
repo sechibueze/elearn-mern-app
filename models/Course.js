@@ -15,6 +15,9 @@ const CourseSchema = new Schema({
     type: String,
     required: true
   },
+  courseImage: {
+    type: Object,
+  },
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'category',
@@ -40,12 +43,22 @@ const CourseSchema = new Schema({
       required: true,
       default: 'public'
     },
+    title: {
+      type: String,
+      required: true
+    },
     content: {
       type: Object,
       required: true,
     },
     note: {
       type: String
+    }
+  }],
+  subscriptions: [{
+    subscriber: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }
   }]
 }, { timestamps: true});

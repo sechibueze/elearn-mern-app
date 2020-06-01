@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../_actions/authActions';
-const Navbar = ({ logout, isAuthenticated }) => {
+window.addEventListener('resize', e => {
+  // console.log('resise', e)
+  console.log('resise', e.target.innerWidth)
+})
+const Navbar = ({ logout, isAuthenticated, cartItems }) => {
   const guestLink = (
     <Fragment>
-      <Link to="/courses" className="navlink">Courses</Link>
-      
       <Link to="/signup" className="navlink fa fa-users"> &nbsp; Signup</Link>
       <Link to="/login" className="navlink fa fa-sign-in"> &nbsp; Login</Link>
     </Fragment>
@@ -28,6 +30,10 @@ const Navbar = ({ logout, isAuthenticated }) => {
           </Link>
           <span className="navlinks-toggler fa fa-bars fa-2x"></span>
           <div className="navlinks show">
+            <Link to="/courses" className="navlink">Courses</Link>
+            <Link to="/category" className="navlink">Category</Link>
+            <Link to="/cart" className="navlink">  Cart <sup> {cartItems && cartItems.length > 0 && cartItems.length} </sup> </Link>
+
             {isAuthenticated ? authLinks : guestLink }
           </div>
         </div>
@@ -40,6 +46,7 @@ Navbar.propTypes = {
   isAuthenticated: PropTypes.bool
 };
  const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    cartItems: state.cart.items
  });
 export default connect(mapStateToProps, { logout })(Navbar);

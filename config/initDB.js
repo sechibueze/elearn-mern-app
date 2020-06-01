@@ -5,7 +5,8 @@ const initDB = () => {
   mongoose.connect(URI, 
     { 
       useFindAndModify: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     }, 
     (err, db) => {
     if (err ) return console.log(`Failed to connect to DB::`, err);

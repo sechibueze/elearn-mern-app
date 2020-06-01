@@ -3,11 +3,11 @@ function checkTeacher(req, res, next) {
   
   try {
     const authUser = req.authUser;
-    const isTeacher = authUser.auth.includes('teacher');
+    const isTeacher = authUser.auth.includes('teacher') || authUser.auth.includes('admin');
     if (!isTeacher) {
       return res.status(401).json({
         status: false,
-        error: 'Unauthorized::only teachers are allowed'
+        error: 'Unauthorized::only teachers or admins are allowed'
       });
     }
 

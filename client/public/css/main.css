@@ -184,6 +184,18 @@ img, video {
   margin-bottom: 1rem;
 }
 
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
+
 .p-2 {
   padding: 2rem;
 }
@@ -214,6 +226,18 @@ img, video {
 
 .mb-2 {
   margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mr-2 {
+  margin-right: 2rem;
+}
+
+.ml-2 {
+  margin-left: 2rem;
 }
 
 .p-3 {
@@ -248,6 +272,18 @@ img, video {
   margin-bottom: 3rem;
 }
 
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.mr-3 {
+  margin-right: 3rem;
+}
+
+.ml-3 {
+  margin-left: 3rem;
+}
+
 .p-4 {
   padding: 4rem;
 }
@@ -278,6 +314,18 @@ img, video {
 
 .mb-4 {
   margin-bottom: 4rem;
+}
+
+.mt-4 {
+  margin-top: 4rem;
+}
+
+.mr-4 {
+  margin-right: 4rem;
+}
+
+.ml-4 {
+  margin-left: 4rem;
 }
 
 .alert {
@@ -373,9 +421,12 @@ img, video {
 }
 .form .form-group .form-control {
   width: 100%;
-  border: 1px solid #443;
+  border: 1px solid #343a40;
   outline: 0;
   padding: 10px 12px;
+}
+.form .form-group .form-control[type=file] {
+  border: none;
 }
 
 .modal {
@@ -484,6 +535,10 @@ table.table tbody td {
 .navbar {
   display: block;
   padding: 0.75rem 0rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 111;
 }
 .navbar .logo, .navbar .navlinks {
   display: inline;
@@ -513,6 +568,11 @@ table.table tbody td {
 }
 .navbar .navlinks .navlink:hover {
   opacity: 0.8;
+}
+
+.allow-navabr {
+  position: relative;
+  top: 68px;
 }
 
 .banner {
@@ -623,7 +683,8 @@ table.table tbody td {
 }
 .classroom-wrapper header .video-player {
   width: 100%;
-  height: auto;
+  height: 16rem;
+  background-color: #a8a8a8;
   margin: auto;
   text-align: center;
 }
@@ -674,6 +735,13 @@ table.table tbody td {
 .classroom-wrapper .lesson-playlist .lesson-item.current {
   background-color: #343a40;
   color: #f4f4f4;
+}
+
+.dashboard-actions a {
+  display: block;
+  margin: 0.75rem auto;
+  cursor: pointer;
+  color: #343a40;
 }
 
 .course-item .course-overview {

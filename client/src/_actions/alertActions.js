@@ -36,7 +36,7 @@ export const handleResponseErrors = (err, type = 'danger') => dispatch => {
     ))
   }
 
-  if (err.response.status !== 422 && err.response.data.error) {
+  if (err.response.status !== 422 && err.response.data) {
     dispatch({
       type: SET_ALERT,
       payload: {

@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { handleResponseErrors } from './alertActions';
-import { 
-  SET_ALERT, 
+import {
   LOADING, 
   LOADED, 
   LOGIN_SUCCESS,
@@ -13,10 +12,10 @@ import {
   LOGIN_FAIL
 } from './types';
 
-export const getConfigHeaders = () => {
+export const getConfigHeaders = (type = "application/json") => {
   let configHeaders = {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": type 
     }
   }
   const token = localStorage.getItem('token');

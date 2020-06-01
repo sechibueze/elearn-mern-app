@@ -205,6 +205,19 @@ $sizes: (1, 2, 3, 4);
   .mb-#{$size}{
     margin-bottom: #{$size}rem;
   }
+
+  // margin top
+  .mt-#{$size}{
+    margin-top: #{$size}rem;
+  }
+  // margin right
+  .mr-#{$size}{
+    margin-right: #{$size}rem;
+  }
+  // margin left
+  .ml-#{$size}{
+    margin-left: #{$size}rem;
+  }
 }
 
 // Alerts
@@ -298,9 +311,12 @@ $sizes: (1, 2, 3, 4);
     }
     .form-control{
       width: 100%;
-      border: 1px solid #443;
+      border: 1px solid $dark-color;
       outline: 0;
       padding: 10px 12px;
+    }
+    .form-control[type='file']{
+      border: none;
     }
    
   }

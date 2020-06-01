@@ -4,6 +4,7 @@ const checkAuth = require('../../middlewares/checkAuth');
 const checkAdmin = require('../../middlewares/checkAdmin');
 const router = express.Router();
 const {
+  getAllUsers,
   manageUsersAuthByAdmin,
   toggleAuthAdmin
 } = require('../../controllers/userControllers');
@@ -14,6 +15,13 @@ const {
  * @access private
  */
 router.put('/:userId', checkAuth, checkAdmin, manageUsersAuthByAdmin);
+
+/**
+ * @route PUT /api/users
+ * @desc Admin can get ALL Users
+ * @access private
+ */
+router.get('/', checkAuth, checkAdmin, getAllUsers);
 
 /**
  * @route PUT /api/users/admin/:userId

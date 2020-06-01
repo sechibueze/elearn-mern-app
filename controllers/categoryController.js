@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const { cloudinaryUploader, updateCloudinaryMediaContent } = require('../config/cloudinaryConfig');
 const { getDataURI } = require('../_utils/dataURI');
 const Category = require('../models/Category');
+const Course = require('../models/Course');
 
 const createCategory = (req, res ) => {
   const errorContainer = validationResult(req);
@@ -67,8 +68,33 @@ const getCategoryById = (req, res ) => {
 
     });
 };
+
+const getCoursesInCategory = (req, res) => {
+  let filter = {};
+  if (req.query.categoryId) filter.categoryId = req.query.categoryId;
+  if (req.query.published) filter.published = req.query.published;
+  Course
+    .find(filter)
+    .populate({
+      path: 'categoryId',
+      model: Category
+    })
+    .then(results => {
+      return res.status(200).json({
+        status: true,
+        message: 'All Category courses',
+        data: results
+      });
+    })
+    .catch(err => {
+      return res.status(500).json({ status: false, error: 'Server error:: Could not retrieve categories' });
+    });
+};
+
 const updateCategoryById = (req, res ) => {
   const categoryId = req.params.categoryId;
+  console.log('cat upd id', req.params.categoryId)
+  
   // Passed all validateions
   const { title, description } = req.body;
   const canUpdateCategoryImageData = getDataURI(req) || req.body.category_image;
@@ -83,8 +109,12 @@ const updateCategoryById = (req, res ) => {
       if (canUpdateCategoryImageData) {
         const result = await updateCloudinaryMediaContent(categoryItem.image.publicId, canUpdateCategoryImageData);
         categoryItem.image.imageUrl = result.secure_url;
+        console.log('cat upd item', categoryItem)
       }
       categoryItem.save(err => {
+
+        if(err) return res.status(500).json({ status: false, error: 'Server error:: Could not update categories' });
+
         return res.status(200).json({
           status: true,
           message: 'Category updated',
@@ -106,7 +136,8 @@ const deleteCategory = (req, res ) => {
 
       return res.status(200).json({
         status: true,
-        message: 'Category deleted'
+        message: 'Category deleted',
+        data: categoryId
       });
     })
     .catch(err => {
@@ -118,6 +149,7 @@ module.exports = {
   createCategory,
   getAllCategory,
   getCategoryById,
+  getCoursesInCategory,
   updateCategoryById,
   deleteCategory
 

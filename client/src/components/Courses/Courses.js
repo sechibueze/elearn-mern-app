@@ -8,7 +8,10 @@ import CourseCard from './CourseCard';
 const Courses = ({loading, loadCourses, userCourses }) => {
 
   useEffect(() => {
-    loadCourses()
+    let filter = {
+      published: true
+    }
+    loadCourses(filter)
   }, [])
   // const courses = [1, 2, 3, 4, 5, 6]
 
@@ -16,7 +19,7 @@ const Courses = ({loading, loadCourses, userCourses }) => {
   return (
     <Fragment>
       <div className="container">
-        <input className="search-input" name="item" placeholder="Search courses..." />
+        {/* <input className="search-input" name="item" placeholder="Search courses..." /> */}
       </div>
 
       <div className="section courses">

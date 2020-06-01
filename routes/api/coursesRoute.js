@@ -10,10 +10,16 @@ const {
   getAllCoursesByQueryFilter,
   updateCourseById,
   deleteCourseById,
+
+  subscribeUserToCourse,
+  unsubscribeUserToCourse,
+  getCourseSubscriptionByUserId,
+
   addLesson,
   getLessonByCourseId,
   editlessonById,
-  removelessonById
+  removelessonById,
+  toggleCourseVisibility
 } = require('../../controllers/courseController');
 
 /**
@@ -21,11 +27,11 @@ const {
  * @desc Create a new course
  * @access private - lockAdmin
  */
-router.post('/', [
-  check('title', 'Title is requires').notEmpty(),
-  check('description', 'Description is requires').notEmpty(),
-  check('categoryId', 'Category is requires').notEmpty(),
-], checkAuth, checkTeacher, createCourse);
+router.post('/', checkAuth, checkTeacher, uploads.single('courseImage'), [
+  check('title', 'Title is required').notEmpty(),
+  check('description', 'Description is required').notEmpty(),
+  check('categoryId', 'Category is required').notEmpty(),
+],  createCourse);
 
 /**
  * @route GET /api/courses
@@ -40,7 +46,34 @@ router.get('/', getAllCoursesByQueryFilter);
  * @desc UPDATE course by courseId
  * @access private
  */
-router.put('/:courseId', checkAuth, checkTeacher, updateCourseById);
+router.put('/:courseId', checkAuth, checkTeacher, uploads.single('courseImage'), updateCourseById);
+
+/**
+ * @route PUT /api/courses/:courseId/visibility
+ * @desc Publish or Unpublish a course with a lesson
+ * @access private
+ */
+router.put('/:courseId/visibility', checkAuth, checkTeacher, toggleCourseVisibility);
+
+/**
+ * @route GET /api/courses/subscriptions
+ * @desc GET All Courses that a User is subscribed to
+ * @access private
+ */
+router.get('/subscriptions', checkAuth, getCourseSubscriptionByUserId);
+/**
+ * @route PUT /api/courses/:courseId/subscriptions
+ * @desc Subscribe User to a course
+ * @access private
+ */
+router.put('/:courseId/subscriptions', checkAuth, subscribeUserToCourse);
+
+/**
+ * @route PUT /api/courses/:courseId/unsubscribe
+ * @desc Subscribe User to a course
+ * @access private
+ */
+router.put('/:courseId/unsubscribe', checkAuth, unsubscribeUserToCourse);
 
 /**
  * @route DELETE /api/courses/:courseId

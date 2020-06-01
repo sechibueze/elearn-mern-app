@@ -3,6 +3,26 @@
 const User = require('../models/User');
 const authReducer = require('../_utils/authReducer');
 
+// 
+function getAllUsers(req, res) {
+  
+  User.find()
+    .select('-password')
+    .then(users => {
+      if (!users) return res.status(400).json({ status: false, error: 'No such record found' });
+      
+      return res.status(200).json({
+        status: true,
+        meesage: 'All Users',
+        data: users
+      });
+    })
+    .catch(err => {
+      if (err) return res.status(500).json({ status: false, error: 'No such user exists' });
+
+    });
+
+}
 // Only Admin can UPGRADE or DOWNGRADE a User
 function manageUsersAuthByAdmin(req, res) {
   // const {currentUserId : id, auth} = req.authUser;
@@ -72,6 +92,7 @@ function toggleAuthAdmin(req, res) {
 }
 
 module.exports = {
+  getAllUsers,
   manageUsersAuthByAdmin,
   toggleAuthAdmin
 };

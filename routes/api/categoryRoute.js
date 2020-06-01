@@ -9,6 +9,7 @@ const {
   createCategory,
   getAllCategory,
   getCategoryById,
+  getCoursesInCategory,
   updateCategoryById,
   deleteCategory
 } = require('../../controllers/categoryController');
@@ -42,6 +43,13 @@ router.get('/', getAllCategory);
  * @access public 
  */
 router.get('/:categoryId',  getCategoryById);
+
+/***
+ * @route GET /api/category/courses/:categoryId
+ * @desc get courses in category
+ * @access public 
+ */
+router.get('/courses/:categoryId', getCoursesInCategory);
 
 /***
  * @route PUT /api/category/:categoryId
