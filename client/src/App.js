@@ -4,56 +4,70 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import store from './store';
 import { loadCurrentUser } from './_actions/authActions';
 import Authenticate from './_utils/Authenticate';
-import Navbar from './components/Navbar';
+
 import Home from './components/Home/Home';
 import Signup from './components/Auth/Signup';
 import Login from './components/Auth/Login';
-import Courses from './components/Courses/Courses';
-import CourseItem from './components/Courses/CourseItem';
-import CategoryList from './components/Category/CategoryList';
-import CategoryCourseList from './components/Category/CategoryCourseList';
+import ToggleAdminAuth from './components/Auth/ToggleAdminAuth';
 
+
+import CategoryPage from './components/Category/CategoryPage';
+import CategoryCourseItemsPage from './components/Category/CategoryCourseItemsPage';
+
+import CoursesPage from './components/Courses/CoursesPage';
+import CourseItemPage from './components/Courses/CourseItemPage';
+
+// Category Manager
 import Dashboard from './components/Dashboard/Dashboard';
-import CategoryItems from './components/Dashboard/CategoryItems';
-import CreateCategory from './components/Dashboard/CreateCategory';
-import UpdateCategory from './components/Dashboard/UpdateCategory';
-import CourseItems from './components/Dashboard/CourseItems';
-import UpdateCourse from './components/Dashboard/UpdateCourse';
-import LessonItems from './components/Dashboard/LessonItems';
-import Users from './components/Dashboard/Users';
+import CategoryAdmin from './components/Category/CategoryAdmin';
+
+// Courses & Lesson Manger
+import CoursesAdmin from './components/Courses/CoursesAdmin';
+import LessonManager from './components/Lessons/LessonManager';
+
+import Subscriptions from './components/Dashboard/Subscriptions';
 import Classroom from './components/Classroom/Classroom';
-import ShoppingCart from './components/Cart/ShoppingCart';
-import UserCourses from './components/Dashboard/UserCourses';
+
+import Users from './components/Users/Users';
+
+// import ShoppingCart from './components/Cart/ShoppingCart';
 store.dispatch(loadCurrentUser());
-function App() {
+const App = ()  => {
   return (
     <Provider store={store}> 
       <Router>
-        <Navbar />
-        <div className="allow-navabr">
+        {/* <Navbar /> */}
+        {/* <div className="allow-navabr"> */}
           <Route path='/' exact component={Home} />
+          <Route path='/admin' exact component={ToggleAdminAuth} />
           <Route path='/signup' exact component={Signup} />
           <Route path='/login' exact component={Login} />
-          <Route path='/courses' exact component={Courses} />
-          <Route path='/courses/:courseId' exact component={CourseItem} />
-          <Route path='/category' exact component={CategoryList} />
-          <Route path='/category/:categoryId' exact component={CategoryCourseList} />
-          <Authenticate path='/dashboard' exact component={Dashboard} />
-          <Authenticate path='/category-items' exact component={CategoryItems} />
-          <Authenticate path='/update-category/:categoryId' exact component={UpdateCategory} />
 
-          <Authenticate path='/active-courses' exact component={UserCourses} />
-          <Authenticate path='/course-items' exact component={CourseItems} />
-          <Authenticate path='/update-course/:courseId' exact component={UpdateCourse} />
-          <Authenticate path='/course-items/:courseId/lessons' exact component={LessonItems} />
+          <Route path='/category' exact component={CategoryPage} />
+          <Route path='/category/:categoryId' exact component={CategoryCourseItemsPage} />
 
+          <Route path='/courses' exact component={CoursesPage} />
+          <Route path='/courses/:courseId' exact component={CourseItemPage} />
+
+
+          <Authenticate path='/browse-courses' exact component={CoursesPage} />
+          <Authenticate path='/subscriptions' exact component={Subscriptions} />
           <Authenticate path='/classroom/:courseId/lessons' exact component={Classroom} />
-          
-          <Authenticate path='/users' exact component={Users} />
-          
-          <Route path='/cart' exact component={ShoppingCart} />
 
-        </div>
+          {/* Teachers and Admin */}
+          {/* Dashboard & Category Manager */}
+          <Authenticate path='/dashboard' exact component={Dashboard} />
+          <Authenticate path='/manage-category' exact component={CategoryAdmin} />
+          <Authenticate path='/manage-users' exact component={Users} />
+
+          {/* Courses & Lesson Manager */}
+          <Authenticate path='/manage-courses' exact component={CoursesAdmin} />
+          <Authenticate path='/manage-lessons/:courseId' exact component={LessonManager} />
+
+          {/*
+          <Route path='/cart' exact component={ShoppingCart} /> */}
+
+     
        </Router>
     </Provider>
   );

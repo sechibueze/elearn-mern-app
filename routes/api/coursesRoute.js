@@ -10,6 +10,7 @@ const {
   getAllCoursesByQueryFilter,
   updateCourseById,
   deleteCourseById,
+  getCourseById,
 
   subscribeUserToCourse,
   unsubscribeUserToCourse,
@@ -40,6 +41,13 @@ router.post('/', checkAuth, checkTeacher, uploads.single('courseImage'), [
  */
 router.get('/', getAllCoursesByQueryFilter);
 
+/**
+ * @route GET /api/courses/:courseId
+ * @desc Get ALL courses
+ * @access public
+ */
+router.get('/:courseId', getCourseById);
+
 
 /**
  * @route PUT /api/courses/:courseId
@@ -60,7 +68,7 @@ router.put('/:courseId/visibility', checkAuth, checkTeacher, toggleCourseVisibil
  * @desc GET All Courses that a User is subscribed to
  * @access private
  */
-router.get('/subscriptions', checkAuth, getCourseSubscriptionByUserId);
+router.get('/users/subscriptions', checkAuth, getCourseSubscriptionByUserId);
 /**
  * @route PUT /api/courses/:courseId/subscriptions
  * @desc Subscribe User to a course
@@ -101,11 +109,11 @@ router.post('/:courseId', checkAuth, checkTeacher, uploads.single('content'), ad
 router.put('/:courseId/lessons/:lessonId', checkAuth, checkTeacher, uploads.single('content'),editlessonById);
 
 /**
- * @route GET /api/courses/:courseId/lessons
+ * @route GET /api/courses/:courseId/lessons/:lessonId
  * @desc Get all lessons in a course
  * @access private
  */
-// router.get('/:courseId/lessons', getLessonByCourseId);
+router.get('/:courseId/lessons/:lessonId', checkAuth, checkTeacher, getLessonByCourseId);
 
 /**
  * @route DELETE /api/courses/:courseId/lessons/:lessonId

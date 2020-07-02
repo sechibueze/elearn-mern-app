@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loadUsers, manageUserAuth } from '../../_actions/adminActions';
 import Loader from '../Loader';
+import AuthContainer from '../AuthContainer';
 const Users = ({ loadUsers, manageUserAuth, users, userAuth }) => {
   const [actionType, setActionType] = useState('')
   useEffect(() => {
@@ -22,8 +22,8 @@ const Users = ({ loadUsers, manageUserAuth, users, userAuth }) => {
   }
   return (
     <Fragment>
-      <div className="container">
-        <Link to='/dashboard' className='fa fa-backspace'>Back</Link>
+      <AuthContainer>
+        <div className="container">
         
         <table className="table mt-1">
           <thead>
@@ -60,12 +60,14 @@ const Users = ({ loadUsers, manageUserAuth, users, userAuth }) => {
           </tbody>
         </table>
       </div>
+      </AuthContainer>
     </Fragment>
   );
 }
  
 Users.propTypes = {
-  loadUsers: PropTypes.func.isRequired
+  loadUsers: PropTypes.func.isRequired,
+  manageUserAuth: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   users: state.admin.users,

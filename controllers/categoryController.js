@@ -25,7 +25,7 @@ const createCategory = (req, res ) => {
 
       let newCategory = new Category(categoryData);
       newCategory.save(err => {
-        if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories' });
+        if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories', err });
         return res.status(201).json({
           status: true,
           message: 'Category created',
@@ -34,11 +34,12 @@ const createCategory = (req, res ) => {
       })
     })
     .catch(err => {
-      if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save categories' });
+      if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not save category image', err });
 
     })
   
 };
+
 const getAllCategory = (req, res ) => {
   Category.find({})
     .then(results => {
@@ -50,9 +51,9 @@ const getAllCategory = (req, res ) => {
     })
     .catch(err => {
       return res.status(500).json({ status: false, error: 'Server error:: Could not retrieve categories' });
-
     });
 };
+
 const getCategoryById = (req, res ) => {
 
   Category.findOne({_id: req.params.categoryId})

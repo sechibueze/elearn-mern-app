@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { signup } from '../../_actions/authActions';
 import { setAlert } from '../../_actions/alertActions';
 import Alert from '../Alert';
+import Navbar from '../Navbar';
+
 const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
   
   const [userData, setUserData] = useState({
@@ -15,14 +17,12 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
   });
 
   const handleChange = ({ target}) => {
-    setUserData({ ...userData, [target.name]: target.value });
-    
+    setUserData({ ...userData, [target.name]: target.value });   
   }
 
   const handleSignup = e => {
     e.preventDefault();
     const {name, email, password} = userData;
-    console.log('user', userData)
     if (!name || !email || !password) {
       return setAlert('All fields are required', 'SIGNUP_FAIL');
     }
@@ -36,13 +36,14 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
   const { name, email, password, confirm_password } = userData;
   return (
     <Fragment>
+      <Navbar />
       <div className="container">
         <form className="form" onSubmit={handleSignup} name="signup-form" id="signup-form">
           <h2 className="text-lead fa fa-users">&nbsp; Signup</h2>
           <p className="text-sub">Join our community of passionate learners</p>
           <sup>*</sup> means Required
           {loading && <h2>Loading...</h2>}
-          <Alert filter='SIGNUP_FAIL'/>
+          <Alert origin='SIGNUP_FAIL'/>
           <div className="form-group">
             <label htmlFor="name">Name<sup>*</sup></label>
             <input type="text" onChange={handleChange} name="name" value={name} className="form-control" id="name" placeholder="John Smith" />
@@ -66,7 +67,7 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
               placeholder="Confirm password" />
           </div>
 
-          <button type="submit" id="signup-btn" className="btn btn-primary fa fa-user"> &nbsp; Signup </button>
+          <button type="submit" id="signup-btn" className="btn btn-primary btn-md fa fa-user"> &nbsp; Signup </button>
 
           <p className="my-2">Already has an account? <Link to="/login">Login</Link> </p>
         </form>

@@ -1,31 +1,29 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Loader from '../Loader';
-import { loadCategory } from '../../_actions/categoryActions';
+import Alert from '../Alert';
+import CategoryOptions from '../CategoryOptions';
 import { loadCourseById, updateCourse } from '../../_actions/courseActions';
 
 const UpdateCourse = ({
-  match,
-  history,
-  loadCategory,
-  loadCourseById,
-  currentCourse,
+  updateCourseId,
+  closeModal,
+
+  loading,
   updateCourse,
-  categoryItems
+  loadCourseById,
+  courseInfo,
+  updatedCourse
+
 }) => {
-  const courseId = match.params.courseId;
-  const [courseData, setCourseData ] = useState({
-    title: '',
-    description: '',
-    price: '',
-    categoryId: ''
-  });
+  
   useEffect(() => {
-    loadCategory();
-    loadCourseById(courseId)
-  }, [courseId]);
+    loadCourseById(updateCourseId)
+  }, [updateCourseId]);
+
+  useEffect(() => {
+    if(updatedCourse !== null) return closeModal();
+  }, [updatedCourse]);
 
   const handleChange = ({ target }) => {
     setCourseData(prev => ({
@@ -35,17 +33,19 @@ const UpdateCourse = ({
   };
   const handleUpdateCourse = e => {
     e.preventDefault();
-    console.log('update courseData::', courseData);
-    updateCourse(courseId, courseData, history)
+    updateCourse(updateCourseId, courseData)
   };
-  const { title, description, categoryId, price } = courseData;
-  console.log('upd courseData::b4 return', courseData)
-  if(!categoryItems || !courseData) return <Loader />
+  const [courseData, setCourseData ] = useState({
+    title:  courseInfo !== null ? courseInfo.title : '',
+    description: '',
+    price: '',
+    categoryId: ''
+  });
+  const { title, description, price } = courseData;
   return (
     <Fragment>
       <form className="form" onSubmit={handleUpdateCourse}>
-        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Add </button>
-        <button className="btn btn-primary p-1">Publish</button>
+        <Alert origin='UPDATE_COURSE_ALERT' />
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input type="text" name="title" onChange={handleChange} value={title} className="form-control my-1" id="title" />
@@ -61,12 +61,11 @@ const UpdateCourse = ({
         <div className="form-group">
           <label htmlFor="categoryId">Category</label>
           <select name="categoryId"  onChange={handleChange} className="form-control">
-            {categoryItems && categoryItems.map(category => (
-              <option key={category._id} selected={ currentCourse && (category._id === currentCourse.categoryId._id) ? true : false} value={category._id}> {category.title} </option>
-            ))}
+            <CategoryOptions />
           </select>
         </div>
 
+        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Add </button>
       </form>
     </Fragment>
   );
@@ -74,12 +73,12 @@ const UpdateCourse = ({
  
 // export default UpdateCourse;
 UpdateCourse.propTypes = {
-  loadCategory: PropTypes.func.isRequired,
   updateCourse: PropTypes.func.isRequired,
   loadCourseById: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  categoryItems: state.category.categoryItems,
-  currentCourse: state.courses.currentCourse
+  loading: state.auth.loading,
+  courseInfo: state.courses.courseInfo,
+  updatedCourse: state.courses.updatedCourse,
 });
-export default connect(mapStateToProps, { loadCategory,loadCourseById, updateCourse })(UpdateCourse);
+export default connect(mapStateToProps, { loadCourseById, updateCourse })(UpdateCourse);

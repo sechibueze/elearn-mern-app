@@ -27,7 +27,7 @@
   }
 }
 
-@media (max-width: 760px){
+@media (max-width: 910px){
   .navbar{
     .navlinks-toggler{
       display: block;
@@ -36,24 +36,13 @@
     }
     .navlinks{
       display: none;
-      &.show{
-        display: block;
-        float: none;
-        .navlink{
-          display: block;
-          padding: .75rem 0rem;
-          margin: auto;
-          text-align: center;
-        }
-        &::before{
-          display: block;
-          clear: both;
-          content: '';
-        }
-      }
     }
     
   }
+}
+@media (max-width: 760px){
+  
+  
   .flex-wrapper{
     display: block;
     margin: auto;

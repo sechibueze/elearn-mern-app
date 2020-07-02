@@ -1,14 +1,48 @@
 @import 'config.scss';
 
+// 
+.start-btn{
+  display: block;
+  margin: 1.25rem auto;
+  text-align: center;
+  padding: 1.75rem 1rem;
+  font-weight: bold;
+}
+.clip{
+    // clip-path: polygon(0% 0%, 75% 0%, 90% 0, 40% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0, 100% 67%, 80% 100%, 0% 100%);
+    background-color: $light-color;  
+    width: 100%;
+    padding: 7rem 0rem;
+}
 // Navbar
+#navbar-toggler{
+  display: none;
+}
+#navbar-toggler:checked ~ .container .navlinks{
+    display: block;
+    float: none;
+    padding-top: 1rem;
+    &::before{
+      display: block;
+      clear: both;
+      content: "";
+    }
+    .navlink{
+      display: block;
+      padding: .75rem 0.25rem;
+      margin: auto;
+      text-align: left;
+    }
+    
+}
 .navbar{
   display: block;
   padding: .75rem 0rem;
-  position: fixed;
+  // position: fixed;
   width: 100%;
-  top: 0;
+  // top: 0;
   z-index: 111;
-
   .logo, .navlinks{
     display: inline;
     color: $light-color;
@@ -21,13 +55,14 @@
       letter-spacing: 1px;
     }
   }
+
   .navlinks-toggler{
     display: none;
   }
+
   .navlinks{
     float: right;
     line-height: 2.8;
-  
     .navlink{
       text-decoration: none;
       color: $light-color;
@@ -38,13 +73,11 @@
         opacity: .8;
       }
     }
-    }
+  }
   
 }
-.allow-navabr{
-  position: relative;
-  top: 68px;
-}
+
+
 // baneer
 .banner{
   width: 100%;
@@ -105,6 +138,18 @@
     }
 }
 
+// Signup & Login
+#signup-form, #login-form{
+  display: block;
+  width: 75%;
+
+  input{
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0 0 2px #ccc;
+    padding: .75rem .5rem;
+  }
+}
 // Courses
 .search-input{
   padding: 1rem 1.25rem;
@@ -264,4 +309,179 @@
 .btn-md{
   padding: 1rem 1.5rem;
 }
+
+// Authenticaed user 
+    .auth-container{
+       display: block;
+       width: 100%;
+       text-align: left;
+       background-color: $light-color;
+       color: $dark-color;
+     }
+     #auth-sidebar-control{
+       display: none;
+     }
+     #auth-sidebar-control:checked ~ .auth-sidebar {
+       left: 0rem;
+     }
+     #auth-sidebar-control:checked ~ .auth-sidebar-handle {
+       opacity: 0;
+       user-select: none;
+     }
+     .auth-sidebar-handle{
+       position: absolute;
+       top: 1rem;
+       left: 1rem;
+       cursor: pointer;
+     }
+     #auth-sidebar-control:checked ~ .auth-main {
+       margin-left: $auth-sidebar-width;
+     }
+     #auth-sidebar-control:checked ~ .auth-main .auth-navbar {
+       margin-left: 0rem;
+       padding-left: .25rem;
+     }
+     .auth-sidebar{
+       position: fixed;
+       left: $auth-sidebar-width-alt;
+       top: 0rem;
+       height: 100%;
+       width: $auth-sidebar-width;
+       background-color: $primary-color;
+       color: $light-color;
+       transition: left .6s ease-in-out;       
+     }
+     .auth-sidebar-close{
+       position: absolute;
+       top: 0rem;
+       right: 0rem;
+       padding: .2rem;
+       color: $success-color;
+       background-color: transparent;
+       cursor: pointer;
+     }
+     .sidebar-header{
+       line-height: 4rem;
+       font-size: 1.2rem;
+       font-weight: bolder;
+       background-color: $primary-color;
+      //  opacity: .8;
+       color: $light-color;
+       text-align: center; 
+       a{
+         color: $light-color;
+       }        
+     }
+    .auth-sidebar .sidebar-actions{
+      margin-top: 1.75rem;
+    }
+    .auth-sidebar .sidebar-actions li{
+     text-align: center;
+     margin: auto;
+     display: block;
+     width: 100%;
+     transition: padding .8s ease-in;
+    }
+    .auth-sidebar .sidebar-actions li:hover{
+      padding-left: 2.5rem;
+    }
+    .auth-sidebar .sidebar-actions li .auth-sidebar-link{
+      line-height: 1.8rem;
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: auto;
+      text-align: left;
+      padding: .5rem 0rem .5rem 1.25rem;
+      border-bottom: 1px solid $dark-color;
+      border-top: 1px solid $primary-color;
+      color: $light-color;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .auth-sidebar .sidebar-actions li .auth-sidebar-link .fa{
+      margin-right: .5rem;
+      text-align: left;
+    }
+
+    .auth-main{
+      margin: 0rem;
+      transition: margin .6s ease-in-out;
+    }
+    .auth-navbar{
+      margin-left: 4rem;
+      line-height: 4rem;
+      transition: margin .6s ease-in-out;
+    }
+    .auth-wrapper{
+      width: 98%;
+      display: block;
+      text-align: center;
+    }
+
+    // Modal
+    .modal.show{
+      display: block;
+    }
+    .modal{
+      display: none;
+      position: fixed;
+      top: 0rem;
+      left: 0rem;
+      width: 100%;
+      height: 100%;
+      background-color: $dark-color;
+      // opacity: .7;
+      z-index: 99;
+      overflow: scroll;
+    }
+    .modal-close{
+      float: right;
+      background-color: $primary-color;
+      color: $light-color;
+      font-weight: 700;
+      padding: .25rem;
+      cursor: pointer;
+    }
+    .modal-close::after{
+      display: block;
+      content: "";
+      clear: both;
+    }
+    .modal-container{
+      width: 85%;
+      display: block;
+      margin: 5rem auto;
+      background-color: $light-color;
+      color: $dark-color;
+      padding: 1.25rem;
+    }
+    .modal-header{
+      padding: 1rem .5rem;
+      text-align: left;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-bottom: 1px solid $dark-color;
+      box-shadow: 0px 2px 3px $success-color;
+    }
+    .modal-body{
+      margin: 1rem auto;
+      text-align: left;
+      font-size: 1rem;
+    }
+    .modal-footer{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      
+    }
+
+    .auth-action{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: center;
+      padding: .5rem .75rem;
+    }
 @import 'mobile.scss';

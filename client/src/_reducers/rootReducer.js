@@ -13,4 +13,4 @@ export default combineReducers({
   cart: cartReducer,
   admin: adminReducer
   
-})
+});

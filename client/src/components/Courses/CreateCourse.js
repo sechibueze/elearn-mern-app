@@ -2,13 +2,16 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Loader from '../Loader';
-import { loadCategory } from '../../_actions/categoryActions';
 import { createCourse } from '../../_actions/courseActions';
+
+import Alert from '../Alert';
+import CategoryOptions from '../CategoryOptions';
 const CreateCourse = ({
-  loadCategory,
-  categoryItems,
-  createCourse
+  closeModal,
+
+  loading,
+  createCourse,
+  newCourse
 }) => {
   const [courseData, setCourseData] = useState({
     title: '',
@@ -17,11 +20,9 @@ const CreateCourse = ({
     categoryId: '',
     price: ''
   });
-  useEffect(() => {
-    loadCategory()
-  }, []);
-
-  if(!categoryItems) return <Loader />
+ useEffect(() => {
+  if(newCourse !== null) return closeModal()
+ }, [ newCourse ])
   const handleChange = ({ target }) => {
     setCourseData(prev => ({
       ...prev,
@@ -36,7 +37,6 @@ const CreateCourse = ({
   }
   const handleCreateCourse = (e) => {
     e.preventDefault();
-    console.log('')
     const fd = new FormData();
     fd.append('title', courseData.title);
     fd.append('description', courseData.description);
@@ -48,10 +48,8 @@ const CreateCourse = ({
   const {title, description, categoryId, price } = courseData;
   return ( 
     <Fragment>
-      <Link className='my-1' to='/dashboard'>Back </Link>
       <form className="form" onSubmit={ handleCreateCourse } encType="multipart/form-data">
-        <h2 className='text-sub'>Create a new Course</h2>
-        
+        <Alert origin='CREATE_COURSE_ALERT' />
         <div className="form-group">
           <label htmlFor="title">Course title</label>
           <input type="text" name="title" onChange={handleChange} value={title} placeholder='Give your course a title' className="form-control my-1" id="title" />
@@ -71,12 +69,10 @@ const CreateCourse = ({
         <div className="form-group">
           <label htmlFor="categoryId">Category</label>
           <select name="categoryId" value={categoryId}  onChange={handleChange} className="form-control">
-            { categoryItems.map(category => (
-              <option key={category._id} value={ category._id}> { category.title } </option>
-            ))}
+            <CategoryOptions />
           </select>
         </div>
-        <button type="submit" className="btn btn-success my-1 btn-sm fa-plus"> &nbsp; Add Course </button>
+        <button type="submit" className="btn btn-primary my-1 btn-sm"> <span className='fa fa-plus' />  &nbsp; Add Course </button>
         
       </form>
     </Fragment>
@@ -87,6 +83,7 @@ const CreateCourse = ({
    createCourse: PropTypes.func.isRequired
  };
 const mapStateToProps = state => ({
-  categoryItems: state.category.categoryItems
+  loading: state.auth.loading,
+  newCourse: state.courses.newCourse
 });
-export default connect(mapStateToProps, { loadCategory, createCourse })(CreateCourse);
+export default connect(mapStateToProps, { createCourse })(CreateCourse);

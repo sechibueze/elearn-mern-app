@@ -1,15 +1,32 @@
 import React, { Fragment, useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addLesoon } from '../../_actions/courseActions';
-const AddLesson = ({ courseId, addLesoon }) => {
+import { getLessonItem, updateLesson } from '../../_actions/courseActions';
+
+import Alert from '../Alert';
+const UpdateLesson = ({ 
+  courseId, 
+  lessonId,
+  updateLesson, 
+  lessonUpdate, 
+  lessonItem,
+  getLessonItem,
+  closeModal 
+}) => {
   const [lessonData, setLessonData] = useState({
-    title: '',
+    title: lessonItem ? lessonItem.title : '',
     type: '',
     access: '',
     content: '',
     note: ''
   });
+ 
+  useEffect(() => {
+    getLessonItem(courseId, lessonId);
+  }, []);
+  useEffect(() => {
+    if(lessonUpdate !== null) closeModal();
+  }, [lessonUpdate]);
   const handleChange = ({ target}) => {
     setLessonData(prev => ({
       ...prev,
@@ -25,13 +42,12 @@ const AddLesson = ({ courseId, addLesoon }) => {
   const handleAddLesson = e => {
     e.preventDefault();
     const fd = new FormData();
-    console.log('Lesson', lessonData)
     fd.append('title', lessonData.title);
     fd.append('type', lessonData.type);
     fd.append('access', lessonData.access);
     fd.append('content', lessonData.content);
     fd.append('note', lessonData.note); 
-    addLesoon(courseId, fd);
+    updateLesson(courseId, lessonId, fd);
   }
   const {title, type, access, content, note } = lessonData;
   const textInput = (
@@ -57,9 +73,10 @@ const AddLesson = ({ courseId, addLesoon }) => {
   
   return (
     <Fragment>
-      <h2 className='text-sub'> Add Lesson </h2>
       <form className="form" onSubmit={handleAddLesson} encType="multipart/form-data">
-        <input
+        <Alert origin='UPDATE_LESSON_ALERT' />
+        <div className='form-group'>
+          <input
           type="text"
           name="title"
           onChange={handleChange}
@@ -68,6 +85,7 @@ const AddLesson = ({ courseId, addLesoon }) => {
           className="form-control my-1"
           id="title"
         />
+        </div>
 
         <div className="form-group">
           <label htmlFor="type">Type</label>
@@ -77,6 +95,7 @@ const AddLesson = ({ courseId, addLesoon }) => {
             <option value="link">Link</option>
           </select>
         </div>
+
         <div className="form-group">
           <label htmlFor="access">Access </label>
           <select name="access" value={access} onChange={handleChange} className="form-control" id="access">
@@ -96,15 +115,20 @@ const AddLesson = ({ courseId, addLesoon }) => {
         </div>
 
 
-        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Add </button>
+        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Update Lesson </button>
 
       </form>
     </Fragment>
   );
 }
  
-AddLesson.propTypes = {
-  addLesoon: PropTypes.func.isRequired
+UpdateLesson.propTypes = {
+  updateLesson: PropTypes.func.isRequired,
+  getLessonItem: PropTypes.func.isRequired
 };
+const mapStateToProps = state => ({
+  lessonUpdate: state.courses.lessonUpdate,
+  lessonItem: state.courses.lessonItem
 
-export default connect(null, { addLesoon })(AddLesson);
+});
+export default connect(mapStateToProps, { getLessonItem,  updateLesson })(UpdateLesson);

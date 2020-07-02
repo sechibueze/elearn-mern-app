@@ -21,14 +21,17 @@ router.put('/:userId', checkAuth, checkAdmin, manageUsersAuthByAdmin);
  * @desc Admin can get ALL Users
  * @access private
  */
-router.get('/', checkAuth, checkAdmin, getAllUsers);
+router.get('/', //checkAuth, checkAdmin, 
+getAllUsers);
 
 /**
  * @route PUT /api/users/admin/:userId
  * @desc Assign/Unassign admin roles to a users
  * @access private
  */
-router.put('/admin/:userId', checkAuth, toggleAuthAdmin);
+router.put('/admin/toggle', 
+[ check('email', 'Email field is required').isEmail()],
+toggleAuthAdmin);
 
 
 module.exports = router;

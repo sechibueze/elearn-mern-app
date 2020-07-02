@@ -2,10 +2,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
-// const authReducer = require('../_utils/authReducer');
 
 // Signup/register new users
-function signup(req, res) {
+const signup = (req, res) => {
   
   const errorsContainer = validationResult(req);
   if (!errorsContainer.isEmpty()) {
@@ -48,19 +47,16 @@ function signup(req, res) {
                 message: 'User signup successful',
                 token
               });
-
-
             })
         })
 
       })
     })
   });
- 
 }
 
 // Login existing users
-function login(req, res){
+const login = (req, res) => {
   const errorsContainer = validationResult(req);
   if (!errorsContainer.isEmpty()) {
     return res.status(422).json({
@@ -101,30 +97,21 @@ function login(req, res){
 }
 
 // Get loggedin users's data by their token
-function getUserByToken(req, res) {
+const getUserByToken = (req, res) => {
   const currentUserId = req.authUser.id;
-  const filter = { _id : currentUserId };
-  User.findOne(filter, '-password', (err , user) => {
+  User.findOne({ _id : currentUserId }, '-password', (err , user) => {
     if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not retrieve record' });
     
     if (!user) return res.status(400).json({ status: false, error: 'No such record found' });
 
     // User found
-    const data = {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      avartar: user.avartar,
-      auth: user.auth
-    }
     return res.status(200).json({
       status: true,
       message: 'User records',
-      data
+      data: user
     });
   });
 }
-
 
 module.exports = {
   signup,

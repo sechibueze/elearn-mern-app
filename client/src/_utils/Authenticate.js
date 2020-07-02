@@ -7,7 +7,7 @@ const Authenticate = ({ component: Component, isAuthenticated, ...rest}) => (
     {...rest}
 
     render={props => !isAuthenticated ?
-     (<Redirect to='/login' />) : 
+     (<Redirect to='/' />) : 
      (<Component {...props} />)
     }
 

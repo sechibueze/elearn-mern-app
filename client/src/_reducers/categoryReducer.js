@@ -4,13 +4,15 @@ import {
   GET_CATEGORY_BY_ID,
   LOAD_CATEGORY_COURSELIST,
   UPDATE_CATEGORY,
+  CLEAR_CATEGORY_DATA,
   DELETE_CATEGORY
  } from '../_actions/types';
 
 const initialState = {
-  categoryItems: null,
-  categoryCourseList: null,
+  categoryItems: [],
   newCategory: null,
+  
+  categoryCourseList: [],
   categoryById: null,
   updateCategory: null,
   deleteCategory: null
@@ -29,6 +31,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         updateCategory: payload
+      };
+    case CLEAR_CATEGORY_DATA:
+      return {
+        ...state,
+        updateCategory: null
       };
     case DELETE_CATEGORY:
       return {

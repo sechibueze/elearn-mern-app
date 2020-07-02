@@ -51,7 +51,7 @@ const Features = () => {
             </div>
           </div>
 
-          <Link to="/signup" className="btn btn-success start-btn fa fa-users fa-2x"> &nbsp; Get started for free</Link>
+          <Link to="/signup" className="btn btn-success start-btn"><span className='fa fa-users fa-2x' /> &nbsp; Get started for free</Link>
         </div>
       </div>
     </Fragment>

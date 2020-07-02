@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { login } from '../../_actions/authActions';
 import { setAlert } from '../../_actions/alertActions';
 import Alert from '../Alert';
+import Navbar from '../Navbar';
 const Login = ({ login, setAlert, isAuthenticated }) => {
   const [userData, setUserData] = useState({ email: '', password: ''});
 
@@ -24,10 +25,11 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
 
   return (
     <Fragment>
+      <Navbar />
       <div className="container">
         <form className="form" onSubmit={handleLogin} name="login-form" id="login-form">
           
-          <h2 className="text-lead fa fa-sign-in">&nbsp; Login</h2>
+          <h2 className="text-lead"> <span className='fa fa-sign-in' />  &nbsp; Login</h2>
           <p className="text-sub">Login to see what others are learning</p>
           <sup>*</sup> means Required
 
@@ -47,7 +49,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
 
 
 
-          <button type="submit" id="login-btn" className="btn btn-primary fa fa-sign-in"> &nbsp; Login </button>
+          <button type="submit" id="login-btn" className="btn btn-primary btn-md fa fa-sign-in"> &nbsp; Login </button>
 
           <p className="my-2">Don't have an account? <Link to="/signup">Signup</Link> </p>
         </form>

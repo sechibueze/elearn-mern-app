@@ -1,11 +1,12 @@
 import { 
   LOAD_COURSES, 
-  LOAD_CURRENT_COURSE,
-
+  LOAD_COURSE_INFO,
+  CLEAR_COURSE_DATA,
   CREATE_COURSE,
   UPDATE_COURSE,
-  TOGGLE_COURSE_VISIBILITY,
   DELETE_COURSE,
+
+  TOGGLE_COURSE_VISIBILITY,
 
   LOAD_COURSE_SUBSCRIPTIONS,
   SUBSCRIBE,
@@ -13,6 +14,7 @@ import {
 
   ADD_LESSON,
   GET_LESSON,
+  CLEAR_LESSON_DATA,
   UPDATE_LESSON,
   DELETE_LESSON
 
@@ -20,11 +22,13 @@ import {
  } from '../_actions/types';
 
 const initialState = {
-  userCourses: null,
-  currentCourse: null,
+  coursesList: [],
+  
   newCourse: null,
-  updatedCourse: null,
   deletedCourse: null,
+  updatedCourse: null,
+  courseInfo: null,
+  
   courseVisibilityStatus: null,
 
   subscriptions: [],
@@ -32,9 +36,9 @@ const initialState = {
   unsubscribe: null,
 
   newLesson: null,
-  lessonItems: null,
-  updatedLesson: null,
-  deletedLesson: null,
+  lessonUpdate: null,
+  lessonItem: null,
+  lessonDelete: null
 }
 
 export default function(state = initialState, action){
@@ -63,22 +67,36 @@ export default function(state = initialState, action){
     case GET_LESSON:
       return {
         ...state,
-        lessonItems: payload
+        lessonItem: payload
+      };
+    case CLEAR_LESSON_DATA:
+      return {
+        ...state,
+        lessonUpdate: null,
+        newLesson: null,
+        lessonItem: null
       };
     case UPDATE_LESSON:
       return {
         ...state,
-        updatedLesson: payload
+        lessonUpdate: payload
       };
     case DELETE_LESSON:
       return {
         ...state,
-        deletedLesson: payload
+        lessonDelete: payload
       };
     case CREATE_COURSE:
       return {
         ...state,
         newCourse: payload
+      };
+    case CLEAR_COURSE_DATA:
+      return {
+        ...state,
+        newCourse: null,
+        updatedCourse: null,
+        courseInfo: null
       };
     case UPDATE_COURSE:
       return {
@@ -94,12 +112,12 @@ export default function(state = initialState, action){
     case LOAD_COURSES:
       return {
         ...state,
-        userCourses: payload
+        coursesList: payload
       };
-    case LOAD_CURRENT_COURSE:
+    case LOAD_COURSE_INFO:
       return {
         ...state,
-        currentCourse: payload
+        courseInfo: payload
       };
     case DELETE_COURSE:
       return {

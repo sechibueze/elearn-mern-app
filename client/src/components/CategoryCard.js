@@ -12,14 +12,9 @@ const CategoryItem = ({category}) => {
         <div className="card-content">
           { description }
         </div>
-        <div className="card-footer">
-          <div className="price">
-            {/* <span className="price-figure"> <sup>N</sup> 1200</span>
-            <span className="price-sale"> <sup>N</sup> 2000</span> */}
-          </div>
+        <div className="card-footer">         
           <div className="course-card-cta">
-            <Link to={`/category/${ _id }`}> Browse courses</Link>
-            
+            <Link to={`/category/${ _id }`}> Browse courses</Link>  
           </div>
         </div>
       </div>

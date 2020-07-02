@@ -29,9 +29,7 @@ const DashboardActions = ({ currentUser}) => {
 
         <Link to="/active-courses">My Courses</Link>
         <Link to="/cart">My Cart</Link>
-        {/* { currentUser && !currentUser.auth.includes('teacher') ? (
-          <span onClick={() => teacherRequest(currentUser.id, 'BECOME_TEACHER') } >Become Teacher</span>
-        ): null} */}
+        
         
         {currentUser && hasRequiredAuth(currentUser.auth, 'teacher') && teacherActions }
         { currentUser && hasRequiredAuth(currentUser.auth, 'admin') && adminActions }

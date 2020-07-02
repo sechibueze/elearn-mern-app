@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Auth container</title>
+  <link href='./css/fa.min.css' rel='stylesheet' />
+  <!-- <link href='./css/main.css' rel='stylesheet' />
+   -->
+   <style>
+     *{
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+     }
+     .auth-container{
+       display: block;
+       margin: auto;
+       width: 100%;
+       text-align: left;
+       background-color: #f1f1f1;
+       color: #233;
+     }
+     #auth-sidebar-control{
+       display: none;
+     }
+     #auth-sidebar-control:checked ~ .auth-sidebar {
+       left: 0rem;
+     }
+     #auth-sidebar-control:checked ~ .auth-sidebar-handle {
+       opacity: 0;
+       user-select: none;
+     }
+     .auth-sidebar-handle{
+       position: absolute;
+       top: 1rem;
+       left: 1rem;
+       cursor: pointer;
+     }
+     #auth-sidebar-control:checked ~ .auth-main {
+       margin-left: 10rem;
+     }
+     #auth-sidebar-control:checked ~ .auth-main .auth-navbar {
+       margin-left: 0rem;
+       padding-left: .25rem;
+     }
+     .auth-sidebar{
+       position: fixed;
+       left: -10rem;
+       top: 0rem;
+       height: 100%;
+       width: 10rem;
+       background-color: darkblue;
+       color: #f1f1f1;
+       transition: left .6s ease-in-out;
+       
+     }
+     .auth-sidebar-close{
+       position: absolute;
+       top: 0rem;
+       right: 0rem;
+       padding: .2rem;
+       color: #f1f1f1;
+       background-color: transparent;
+       cursor: pointer;
+     }
+     .sidebar-header{
+       line-height: 4rem;
+       font-size: 1.2rem;
+       font-weight: bolder;
+       background-color: darkgrey;
+       color: #333;
+       text-align: center;         
+     }
+    .auth-sidebar .sidebar-actions{
+      margin-top: 1.75rem;
+    }
+    .auth-sidebar .sidebar-actions li{
+     text-align: center;
+     margin: auto;
+     display: block;
+     width: 100%;
+     transition: padding .8s ease-in;
+    }
+    .auth-sidebar .sidebar-actions li:hover{
+      padding-left: 2.5rem;
+    }
+    .auth-sidebar .sidebar-actions li a{
+      line-height: 1.8rem;
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: auto;
+      text-align: center;
+      padding: .5rem 0.25rem;
+      border-bottom: 1px solid green;
+      border-top: 1px solid red;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .auth-sidebar .sidebar-actions li a .fa{
+      margin-right: .5rem;
+      text-align: left;
+    }
+
+    .auth-main{
+      margin: 0rem;
+      transition: margin .6s ease-in-out;
+    }
+    .auth-navbar{
+      margin-left: 4rem;
+      line-height: 4rem;
+      transition: margin .6s ease-in-out;
+    }
+    .auth-wrapper{
+      width: 98%;
+      margin: auto;
+      display: block;
+      text-align: center;
+    }
+   </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <input type="checkbox"  id="auth-sidebar-control">
+    <label for="auth-sidebar-control" class="auth-sidebar-handle fa fa-bars fa-2x"></label>
+    <aside class="auth-sidebar">
+      <label for="auth-sidebar-control" class="auth-sidebar-close fa fa-close"></label>
+      <header class="sidebar-header">
+        <span class="sidebar-icon fa fa-key"></span>
+        <span class="sidebar-name">Okanmuta</span>
+      </header>
+      <ul class="sidebar-actions">
+        <li>
+          <a href="./dashboard.html"> <span class="fa fa-close"></span> Courses</a>
+        </li>
+        <li>
+          <a href="./dashboard.html"> <span class="fa fa-close"></span> Learn it</a>
+        </li>
+        <li>
+          <a href="./dashboard.html"> <span class="fa fa-close"></span> Learn it</a>
+        </li>
+        <li>
+          <a href="./dashboard.html"> <span class="fa fa-close"></span> Learn it</a>
+        </li>
+      </ul>
+    </aside>
+    <div class="auth-main">
+      <nav class="auth-navbar">
+        <h1> Auth main</h1>
+      </nav>
+
+      <div class="auth-wrapper">
+        <p> hello dats</p>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

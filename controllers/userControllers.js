@@ -4,7 +4,7 @@ const User = require('../models/User');
 const authReducer = require('../_utils/authReducer');
 
 // 
-function getAllUsers(req, res) {
+const getAllUsers = (req, res) => {
   
   User.find()
     .select('-password')
@@ -56,24 +56,26 @@ function manageUsersAuthByAdmin(req, res) {
 }
 
 // make or unmake admin
-function toggleAuthAdmin(req, res) {
+const  toggleAuthAdmin = (req, res) => {
 
-  const userId = req.params.userId;
-  const { action } = req.body;
-  const filter = { _id: userId };
+  const {email} = req.body
+  if (!email) {
+    return res.status(400).json({ status: false, error: 'No valid user specified' });
+  }
 
-  User.findById(filter)
+  User.findOne({ email })
     .select('-password')
     .then(user => {
 
       if (!user) return res.status(400).json({ status: false, error: 'No such record found' });
+      
       // Change User Priviledge
-
-      const newAuth = authReducer(user.auth, action)
-
-      user.auth = newAuth;
-
-
+      if (!user.auth.includes('admin')) {
+        user.auth = [...user.auth, 'admin'];
+      }else{
+        user.auth = user.auth.filter(authStatus => authStatus !== 'admin');
+      }
+      
       user.save(err => {
         if (err) return res.status(500).json({ status: false, error: 'Failed to approve user' });
 
@@ -86,9 +88,7 @@ function toggleAuthAdmin(req, res) {
     })
     .catch(err => {
       if (err) return res.status(500).json({ status: false, error: 'No such user exists' });
-
     });
-
 }
 
 module.exports = {

@@ -1,17 +1,22 @@
 import axios from 'axios';
 
-import { handleResponseErrors } from './alertActions';
+import { handleResponseErrors, setAlert } from './alertActions';
 import {
   LOADING, 
   LOADED, 
+
   LOGIN_SUCCESS,
-  LOAD_CURRENT_USER,
-  LOGOUT,
+  LOGIN_FAIL,
+
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
-  LOGIN_FAIL
+
+  LOAD_CURRENT_USER,
+  AUTH_ERROR,
+  LOGOUT
 } from './types';
 
+// Sets the config headers for HTTP requests
 export const getConfigHeaders = (type = "application/json") => {
   let configHeaders = {
     headers: {
@@ -24,8 +29,9 @@ export const getConfigHeaders = (type = "application/json") => {
   }
   return configHeaders;
 };
+
 export const loadCurrentUser = () => dispatch => {
-  dispatch({ type: LOADING });
+  // dispatch({ type: LOADING });
   const configHeaders = getConfigHeaders();
   axios.get('/api/auth', configHeaders)
     .then(({data}) => {
@@ -33,11 +39,11 @@ export const loadCurrentUser = () => dispatch => {
         type: LOAD_CURRENT_USER,
         payload: data.data
       });
-      dispatch({ type: LOADED });
+      // dispatch({ type: LOADED });
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err, 'AUTH_FAIL'));
-      dispatch({ type: LOADED });
+      handleResponseErrors(err, AUTH_ERROR) 
+      // dispatch({ type: LOADED });
     })
 };
 
@@ -49,13 +55,12 @@ export const signup = userData => dispatch => {
     .then(({data}) => {
       const { token } = data;
       localStorage.setItem('token', token);
-
       dispatch(loadCurrentUser());
       dispatch({ type: SIGNUP_SUCCESS});
       dispatch({ type: LOADED});
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err, 'SIGNUP_FAIL'));
+      dispatch(handleResponseErrors(err, SIGNUP_FAIL));
       dispatch({ type: SIGNUP_FAIL });
       dispatch({ type: LOADED });
     });
@@ -79,8 +84,23 @@ export const login = userData => dispatch => {
       dispatch({ type: LOADED });
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err));
+      dispatch(handleResponseErrors(err, LOGIN_FAIL));
       dispatch({ type: LOGIN_FAIL });
+      dispatch({ type: LOADED });
+    })
+}
+export const toggleAdminAuth = data => dispatch => { 
+  dispatch({type: LOADING});
+  const body = JSON.stringify(data);
+  const configHeaders = getConfigHeaders()
+  axios.put('/api/users/admin/toggle', body, configHeaders)
+    .then(({ data }) => {
+      // Update state
+      dispatch(setAlert("User role updated successfully", 'TOGGLE_ADMIN_AUTH', 'success'));
+      dispatch({ type: LOADED });
+    })
+    .catch(err => {
+      dispatch(handleResponseErrors(err, 'TOGGLE_ADMIN_AUTH_ERROR'));
       dispatch({ type: LOADED });
     })
 }

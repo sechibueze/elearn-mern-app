@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../_actions/authActions';
-window.addEventListener('resize', e => {
-  // console.log('resise', e)
-  console.log('resise', e.target.innerWidth)
-})
+import { APP_NAME } from '../constants';
+
 const Navbar = ({ logout, isAuthenticated, cartItems }) => {
   const guestLink = (
     <Fragment>
@@ -17,23 +15,22 @@ const Navbar = ({ logout, isAuthenticated, cartItems }) => {
   const authLinks = (
     <Fragment>
       <Link to="/dashboard" className="navlink fa fa-dashboard"> &nbsp; Dashboard</Link>
-      <span onClick={() => logout()} className="navlink fa fa-sign-out"> &nbsp; Logout</span>
     </Fragment>
   );
   return (
     <Fragment>
       <nav className="navbar bg-dark clearfix">
+        <input type="checkbox" id="navbar-toggler" />
         <div className="container">
           <Link className="logo clearfix" to="/">
             <span className="logo-image fa fa-lightbulb-o fa-2x"></span>
-            <span className="logo-name">eLearn</span>
+            <span className="logo-name"> { APP_NAME } </span>
           </Link>
-          <span className="navlinks-toggler fa fa-bars fa-2x"></span>
+          <label htmlFor="navbar-toggler" className="navlinks-toggler fa fa-bars fa-2x"></label>
           <div className="navlinks show">
-            <Link to="/courses" className="navlink">Courses</Link>
-            <Link to="/category" className="navlink">Category</Link>
-            <Link to="/cart" className="navlink">  Cart <sup> {cartItems && cartItems.length > 0 && cartItems.length} </sup> </Link>
-
+            <Link to="/courses" className="navlink fa fa-paper-plane"> &nbsp; Courses</Link>
+            <Link to="/category" className="navlink fa fa-list-alt"> &nbsp; Category</Link>
+            <Link to="/cart" className="navlink fa fa-cart-plus">  &nbsp; Cart <sup> {cartItems && cartItems.length > 0 && cartItems.length} </sup> </Link>
             {isAuthenticated ? authLinks : guestLink }
           </div>
         </div>

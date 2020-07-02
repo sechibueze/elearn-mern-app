@@ -58,7 +58,7 @@ const getAllCoursesByQueryFilter = (req, res) => {
   if(query.categoryId) filter.categoryId = query.categoryId;
   if(query.userId) filter.userId = query.userId;
   if (query.published) filter.published = query.published;
-  console.log('filter', filter)
+  
 
   Course.find(filter)
     .populate({
@@ -76,6 +76,31 @@ const getAllCoursesByQueryFilter = (req, res) => {
         status: true,
         message: 'list of courses',
         data: courses
+      });
+    })
+    .catch(err => {
+      return res.status(500).json({ status: false, error: 'Server error:: Could not retrieve courses' });
+
+    })
+}
+const getCourseById = (req, res) => {
+  const { courseId } = req.params;
+  Course.findOne({_id: courseId})
+    .populate({
+      path: 'categoryId',
+      select: ['title'],
+      model: Category
+    })
+    .populate({
+      path: 'userId',
+      select: ['name', 'avartar'],
+      model: User
+    })
+    .then(course => {
+      return res.status(200).json({
+        status: true,
+        message: 'Requested course',
+        data: course
       });
     })
     .catch(err => {
@@ -271,27 +296,15 @@ const unsubscribeUserToCourse = (req, res) => {
 };
 // Get all courses that a user is subscribed to
 const getCourseSubscriptionByUserId = (req, res) => {
-  const courseId = req.params.courseId;
+  // const courseId = req.params.courseId;
   const currentUserId = req.authUser.id;
   let filter = {
     'subscriptions.subscriber': currentUserId
   };
+  // console.log('course subscibers', currentUserId)
   Course.find(filter)
     .then(courseItem => {
-      // console.log('setting course visibility course', courseItem);
-      // if (!courseItem) return res.status(400).json({ status: false, error: 'The requested course was not found' });
-
-      // // User can only edit his course
-      // if (courseItem.userId.toString() !== currentUserId) return res.status(401).json({ status: false, error: 'You can only edit your courses' });
-
-      // // Update course that has at least one lesson
-      // if (courseItem.lessons.length < 1) return res.status(400).json({ status: false, error: 'You cannot publish a course without a lesson' });
-
-      // courseItem.published = !courseItem.published;
-
-      // courseItem.save(err => {
-      //   if (err) return res.status(500).json({ status: false, error: 'Server error:: Could not aupdate courses' });
-
+     
         return res.status(200).json({
           status: true,
           message: 'All courses subscribed',
@@ -301,7 +314,7 @@ const getCourseSubscriptionByUserId = (req, res) => {
       // });
     })
     .catch(err => {
-      return res.status(500).json({ status: false, error: 'Server error:: Could not retrieve courses' });
+      return res.status(500).json({ status: false, err, error: 'Server error:: Could not get subscription courses courses' });
 
     })
 };
@@ -325,7 +338,7 @@ const addLesson = (req, res) => {
           if (courseItem.userId.toString() !== currentUserId) return res.status(400).json({ status: false, error: 'You can only add lessons to the courses you created' });
         //  course is added by course creator
           console.log('courseItem has right owner ')
-          cloudinaryUploader.upload(lessonLink)
+          cloudinaryUploader.upload(lessonLink) // , { resource_type: "video" }
             .then(result => {
               let content = {};
               content.publicId = result.public_id;
@@ -359,7 +372,37 @@ const addLesson = (req, res) => {
         });
     
 };
-// const getLessonByCourseId = (req, res) => {};
+const getLessonByCourseId = (req, res) => {
+  const {courseId, lessonId} = req.params;
+  const currentUserId = req.authUser.id;
+  Course.findOne({ _id: courseId })
+    .then(courseItem => {
+      if (!courseItem) return res.status(400).json({ status: false, error: 'Could not find courses' });
+
+      // User can only edit his course
+      if (courseItem.userId.toString() !== currentUserId) return res.status(401).json({ status: false, error: 'You can only edit your courses' });
+      
+      if (courseItem.lessons.some(lessonItem => lessonItem._id.toString() === lessonId)) {
+        let _ = courseItem.lessons.filter(lesson => lesson._id.toString() === lessonId);
+        return res.status(200).json({
+          status: true,
+          message: 'Lesson found',
+          data: _[0]
+        });
+      }
+
+      return res.status(404).json({
+          status: false,
+          error: 'Lesson not found'
+        });
+      
+    })
+    .catch(err => {
+      return res.status(500).json({ status: false, error: 'Server error:: Could not find courses' });
+
+    });
+};
+
 const editlessonById = async (req, res) => {
   const courseId = req.params.courseId;
   const lessonId = req.params.lessonId;
@@ -435,6 +478,7 @@ const removelessonById = (req, res) => {
 
 module.exports = {
   createCourse,
+  getCourseById,
   getAllCoursesByQueryFilter,
   updateCourseById,
   deleteCourseById,
@@ -444,7 +488,7 @@ module.exports = {
   getCourseSubscriptionByUserId,
 
   addLesson,
-  // getLessonByCourseId,
+  getLessonByCourseId,
   editlessonById,
   removelessonById,
   toggleCourseVisibility

@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { clearAlert } from '../_actions/alertActions';
 
-const Alert = ({ alertBucket, filter, type, clearAlert}) => {
-  const displayAlerts = filter ? alertBucket.filter(alert => alert.type === filter) : alertBucket;
+const Alert = ({ alertBucket, origin, type, clearAlert}) => {
+  const displayAlerts = origin ? alertBucket.filter(alert => alert.origin === origin) : alertBucket;
   return (
     <Fragment>
       {displayAlerts.length > 0 && displayAlerts.map(alert => 
         (
-        <div key={`${alert.alertId}`} className={`mr-1 alert alert-${type ? type : 'danger'}`}>
+        <div key={`${alert.alertId}`} className={`alert alert-${type ? type : 'danger'}`}>
           { alert.alertText }
-          <span className='fa fa-close' onClick={() => clearAlert(alert.alertId)} />
+          <span className='alert-close fa fa-close' onClick={() => clearAlert(alert.alertId)} />
           </div>))
       }    
     </Fragment>
@@ -20,11 +20,10 @@ const Alert = ({ alertBucket, filter, type, clearAlert}) => {
 Alert.propTypes = {
   alertBucket: PropTypes.array.isRequired,
   type: PropTypes.string,
-  filter: PropTypes.string,
+  origin: PropTypes.string,
   clearAlert: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   alertBucket: state.alerts.alertBucket
-  
 });
 export default connect(mapStateToProps, { clearAlert })(Alert);

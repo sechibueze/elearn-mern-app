@@ -3,22 +3,36 @@ import { Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
+import Alert from '../Alert';
 import { loadCategoryById, updateCategory } from '../../_actions/categoryActions';
 
-const UpdateCategory = ({ history, match , loadCategoryById, categoryById, updateCategory, updatedCategory}) => {
-  const categoryId = match.params.categoryId;
+const UpdateCategory = ({
+  categoryId,
+  closeModal,
+
+  loadCategoryById, 
+  updateCategory,
+
+  loading,
+  categoryById, 
+  updatedCategory
+}) => {
+
+    const [categoryData, setCategoryData] = useState({
+      title:  loading && categoryById !== null ? categoryById.title : '', 
+      category_image: '',
+      description: loading && categoryById !== null ? categoryById.description : ''
+    });
+    
   useEffect(() => {
     loadCategoryById(categoryId)
   }, [categoryId]);
 
+  useEffect(() => {
+    if(updatedCategory !==  null) return closeModal();
+  }, [updatedCategory]);
 
-  const [categoryData, setCategoryData] = useState({
-    title: '', //categoryId === null ? '' : categoryById.title,
-    category_image: '',
-    description: '' // categoryId === null ? '' : categoryById.description
-  });
-
-  if (!categoryById) return <Loader />
+  if (loading && !categoryById) return <Loader />
 
   
   const handleChange = ({ target }) => {
@@ -42,18 +56,15 @@ const UpdateCategory = ({ history, match , loadCategoryById, categoryById, updat
         fd.append(key, categoryData[key]);
       }
     }
-    // console.log('upd cat fd', fd.get(''))
-    // console.log('upd cat  va', fd.valu())
-    updateCategory(categoryId, fd, history);
+    updateCategory(categoryId, fd);
   };
  
   const {title, description } = categoryData;
   return (
     <Fragment>
-      <h1> Update category </h1>
+      
       <form className="form" onSubmit={handleUpdateCategory} encType="multipart/form-data">
-        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Add </button>
-        <Link to="/category-items" className="btn btn-primary">Cancel</Link>
+        <Alert origin='CATEGORY_ALERT' />
         <div className="form-group">
           {/* <img src={ categoryId.image.imageurl} alt='category data ' /> */}
           <label htmlFor="category_image">Category Image</label>
@@ -68,6 +79,9 @@ const UpdateCategory = ({ history, match , loadCategoryById, categoryById, updat
           <label htmlFor="description">Description</label>
           <textarea name="description" onChange={handleChange} value={description}  className="form-control" cols="25" rows="5" id="description" />
         </div>
+
+        <button type="submit" className="btn btn-success btn-sm fa-plus"> &nbsp; Add </button>
+  
       </form>
     </Fragment>
   );
@@ -78,10 +92,10 @@ const UpdateCategory = ({ history, match , loadCategoryById, categoryById, updat
 UpdateCategory.propTypes = {
   loadCategoryById: PropTypes.func.isRequired,
   updateCategory: PropTypes.func.isRequired
-
 };
 const mapStateToProps = state => ({
+  loading: state.auth.loading,
   categoryById: state.category.categoryById,
-  updatedCategory: state.category.updateCategory
+  updatedCategory: state.category.updateCategory,
 });
-export default connect(mapStateToProps, { loadCategoryById, updateCategory })(withRouter(UpdateCategory));
+export default connect(mapStateToProps, { loadCategoryById, updateCategory })(UpdateCategory);
