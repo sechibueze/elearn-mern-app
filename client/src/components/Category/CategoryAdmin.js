@@ -7,7 +7,7 @@ import Modal from '../Modal';
 import Alert from '../Alert';
 
 import CreateCategory from './CreateCategory';
-import { loadCategory } from '../../_actions/categoryActions';
+import { loadCategory, clearCategoryData } from '../../_actions/categoryActions';
 import ShowCategory from './ShowCategory';
 const CategoryAdmin = ({
   loading,
@@ -15,12 +15,19 @@ const CategoryAdmin = ({
   categoryItems,
   newCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+
+  clearCategoryData
 }) => {
   const [createModalVisibility, setCreateModalVisibility] = useState(false)
   useEffect(() => {
     loadCategory()
   }, [newCategory, updateCategory, deleteCategory])
+
+  const handleModalClose = () => {
+    clearCategoryData();
+    setCreateModalVisibility(false)
+  }
 
   if(loading && categoryItems.length === 0) return <Loader />
   
@@ -33,8 +40,8 @@ const CategoryAdmin = ({
         <Alert origin="DELETE_CATEGORY_ALERT" type="danger"/>
         {
           createModalVisibility && (
-            <Modal isOpen={createModalVisibility} title="Create Category" closeModal={() => setCreateModalVisibility(false)}>
-              <CreateCategory closeModal={() => setCreateModalVisibility(false)} />
+            <Modal isOpen={createModalVisibility} title="Create Category" closeModal={() => handleModalClose()}>
+              <CreateCategory closeModal={() => handleModalClose()} />
             </Modal>
 
           )
@@ -67,7 +74,8 @@ const CategoryAdmin = ({
 }
  
  CategoryAdmin.propTypes = {
-   loadCategory: PropTypes.func.isRequired
+   loadCategory: PropTypes.func.isRequired,
+   clearCategoryData: PropTypes.func.isRequired
  };
 
  const mapStateToProps = state => ({
@@ -77,4 +85,4 @@ const CategoryAdmin = ({
    updateCategory: state.category.updateCategory,
    deleteCategory: state.category.deleteCategory
  });
-export default connect(mapStateToProps, { loadCategory})(CategoryAdmin);
+export default connect(mapStateToProps, { loadCategory, clearCategoryData})(CategoryAdmin);

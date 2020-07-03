@@ -7,10 +7,10 @@ cloudinary.config({
 
 const cloudinaryUploader = cloudinary.v2.uploader;
 const updateCloudinaryMediaContent = async (publicId, data, opts = {}) => {
-  console.log('passed to update cloudinary')
-  console.log('public ID', publicId)
-  // console.log('data', data)
-  console.log('opts', opts)
+  // console.log('passed to update cloudinary')
+  // console.log('public ID', publicId)
+  // // console.log('data', data)
+  // console.log('opts', opts)
   try {
     const result = await cloudinaryUploader.upload(data, { public_id: publicId });
     

@@ -22,11 +22,12 @@ const createCourse = (req, res) => {
     categoryId,
     price
   } = req.body;
-  console.log('body add course', req.body)
-  console.log('file add course', req.file)
+  // console.log('body add course', req.body)
   let courseInit = { userId, title, description, categoryId };
   if (price) courseInit.price = price;
   const courseImageLink = getDataURI(req) || req.body.courseImage;
+  // console.log('file add course', courseImageLink)
+  
   cloudinaryUploader.upload(courseImageLink)
     .then(result => {
       const courseImageUrl = result.secure_url;
@@ -45,7 +46,7 @@ const createCourse = (req, res) => {
       });
     })
     .catch(err => {
-      return res.status(500).json({ status: false, error: 'Failed to upload course files' });
+      return res.status(500).json({ status: false, err, error: 'Failed to upload course files' });
 
     });
   

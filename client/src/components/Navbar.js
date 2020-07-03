@@ -14,7 +14,7 @@ const Navbar = ({ logout, isAuthenticated, cartItems }) => {
   );
   const authLinks = (
     <Fragment>
-      <Link to="/dashboard" className="navlink fa fa-dashboard"> &nbsp; Dashboard</Link>
+      <Link to="/dashboard" className="navlink fa fa-paper-plane"> &nbsp; Dashboard</Link>
     </Fragment>
   );
   return (
@@ -28,7 +28,7 @@ const Navbar = ({ logout, isAuthenticated, cartItems }) => {
           </Link>
           <label htmlFor="navbar-toggler" className="navlinks-toggler fa fa-bars fa-2x"></label>
           <div className="navlinks show">
-            <Link to="/courses" className="navlink fa fa-paper-plane"> &nbsp; Courses</Link>
+            <Link to="/courses" className="navlink fa fa-book-open"> &nbsp; Courses</Link>
             <Link to="/category" className="navlink fa fa-list-alt"> &nbsp; Category</Link>
             {/* <Link to="/cart" className="navlink fa fa-cart-plus">  &nbsp; Cart <sup> {cartItems && cartItems.length > 0 && cartItems.length} </sup> </Link> */}
             {isAuthenticated ? authLinks : guestLink }

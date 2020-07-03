@@ -35,7 +35,8 @@ export default function (state = initialState, action) {
     case CLEAR_CATEGORY_DATA:
       return {
         ...state,
-        updateCategory: null
+        updateCategory: null,
+        newCategory: null
       };
     case DELETE_CATEGORY:
       return {

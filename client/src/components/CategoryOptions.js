@@ -16,7 +16,7 @@ const CategoryOptions = ({
       })
       .catch(err => console.log('err in cat', err))
   }, [categoryItems]);
-    console.log('opt cat', category)
+  
   return ( 
           <Fragment>
 
