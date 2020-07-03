@@ -16,8 +16,8 @@ const Banner = () => {
         </p>
           </div>
           <div className="banner-action-buttons">
-            <Link to="/signup" className="btn btn-primary fa fa-user"> &nbsp; Signup</Link>
-            <Link to="/login" className="btn btn-success fa fa-sign-in">&nbsp; Login</Link>
+            <Link to="/signup" className="btn btn-primary fa fa-users"> &nbsp; Signup</Link>
+            <Link to="/login" className="btn btn-success fa fa-sign-in-alt">&nbsp; Login</Link>
           </div>
         </div>
       </div>

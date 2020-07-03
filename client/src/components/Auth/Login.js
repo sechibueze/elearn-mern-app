@@ -15,7 +15,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
   const handleLogin = e => { 
     e.preventDefault();
     const {email, password} = userData;
-    if(!email) return setAlert('Email is required', 'LOGIN_FAIL')
+    if(!email) return setAlert('Email is required', 'LOGIN_ALERT')
     if(!password) return setAlert('Password is required', 'LOGIN_FAIL')
 
     login(userData);
@@ -33,7 +33,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
           <p className="text-sub">Login to see what others are learning</p>
           <sup>*</sup> means Required
 
-          <Alert />
+          <Alert origin='LOGIN_ALERT'/>
           <div className="form-group">
             <label htmlFor="email">Email<sup>*</sup></label>
             <input type="email" name="email" onChange={handleChange}
@@ -49,7 +49,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
 
 
 
-          <button type="submit" id="login-btn" className="btn btn-primary btn-md fa fa-sign-in"> &nbsp; Login </button>
+          <button type="submit" id="login-btn" className="btn btn-primary btn-md "> <span className='fa fa-sign-in' />  &nbsp; Login </button>
 
           <p className="my-2">Don't have an account? <Link to="/signup">Signup</Link> </p>
         </form>

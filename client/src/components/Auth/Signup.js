@@ -24,7 +24,7 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
     e.preventDefault();
     const {name, email, password} = userData;
     if (!name || !email || !password) {
-      return setAlert('All fields are required', 'SIGNUP_FAIL');
+      return setAlert('All fields are required', 'SIGNUP_ALERT');
     }
     if (userData.password !== userData.confirm_password) {
       return setAlert('Passwords must match', 'SIGNUP_FAIL');
@@ -39,11 +39,11 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
       <Navbar />
       <div className="container">
         <form className="form" onSubmit={handleSignup} name="signup-form" id="signup-form">
-          <h2 className="text-lead fa fa-users">&nbsp; Signup</h2>
+          <h2 className="text-lead">  <span className='fa fa-users' /> &nbsp; Signup</h2>
           <p className="text-sub">Join our community of passionate learners</p>
           <sup>*</sup> means Required
           {loading && <h2>Loading...</h2>}
-          <Alert origin='SIGNUP_FAIL'/>
+          <Alert origin='SIGNUP_ALERT'/>
           <div className="form-group">
             <label htmlFor="name">Name<sup>*</sup></label>
             <input type="text" onChange={handleChange} name="name" value={name} className="form-control" id="name" placeholder="John Smith" />
@@ -67,7 +67,7 @@ const Signup = ({loading, isAuthenticated, signup, setAlert }) => {
               placeholder="Confirm password" />
           </div>
 
-          <button type="submit" id="signup-btn" className="btn btn-primary btn-md fa fa-user"> &nbsp; Signup </button>
+          <button type="submit" id="signup-btn" className="btn btn-primary btn-md"> <span className='fa fa-user' /> &nbsp; Signup </button>
 
           <p className="my-2">Already has an account? <Link to="/login">Login</Link> </p>
         </form>

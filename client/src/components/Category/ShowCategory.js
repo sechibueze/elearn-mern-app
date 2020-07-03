@@ -63,7 +63,7 @@ const ShowCategory = ({
               categoryItems.map((items, idx) => (
                 <tr key={idx}>
                   <td> {`${++idx}`} </td>
-                  <td> <img src={items.image.imageUrl} alt='cat imag' /> </td>
+                  <td> <img className='table-image' src={items.image.imageUrl} alt='cat imag' /> </td>
                   <td> {items.title} </td>
                   <td> {items.description} </td>
                   <td> <span className="fa fa-edit" onClick={() => showCategoryForUpdate(items._id)} />  </td>

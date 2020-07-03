@@ -27,14 +27,18 @@ const CategoryAdmin = ({
   return ( 
     <AuthContainer>
       <Fragment>
-        <Alert origin="CREATE_CATEGORY" type="success"/>
+        <Alert origin="CREATE_CATEGORY_SUCCESS" type="success"/>
         <Alert origin="UPDATE_CATEGORY_SUCCESS" type="success"/>
         <Alert origin="DELETE_CATEGORY_SUCCESS" type="success"/>
         <Alert origin="DELETE_CATEGORY_ALERT" type="danger"/>
-        
-        <Modal isOpen={createModalVisibility} title="Create Category" closeModal={() => setCreateModalVisibility(false)}>
-          <CreateCategory closeModal={() => setCreateModalVisibility(false)} />
-        </Modal>
+        {
+          createModalVisibility && (
+            <Modal isOpen={createModalVisibility} title="Create Category" closeModal={() => setCreateModalVisibility(false)}>
+              <CreateCategory closeModal={() => setCreateModalVisibility(false)} />
+            </Modal>
+
+          )
+        }
 
         {
           categoryItems.length === 0 ? (

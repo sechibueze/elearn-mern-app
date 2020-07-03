@@ -15,13 +15,13 @@ import { handleResponseErrors, setAlert } from './alertActions';
 export const createCategory = (categoryFormData) => dispatch => {
   dispatch({ type: LOADING });
   const config = getConfigHeaders();
-  axios.post(`${baseUrl}/api/category`, categoryFormData, config)
+  axios.post(`/api/category`, categoryFormData, config)
     .then(({ data }) => {
       dispatch({
         type: CREATE_CATEGORY,
         payload: data.data
       });
-      dispatch(setAlert('Category created', CREATE_CATEGORY, 'success'))
+      dispatch(setAlert('Category created', 'CREATE_CATEGORY_SUCCESS'))
       dispatch({ type: LOADED });
     })
     .catch(err => {
@@ -103,7 +103,7 @@ export const loadCategory = () => dispatch => {
     })
     .catch(err => {
       handleResponseErrors(err, LOAD_CATEGORY);
-      dispatch({ type: LOADED });
+      // dispatch({ type: LOADED });
     });
 };
 

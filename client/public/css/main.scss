@@ -372,6 +372,9 @@
          color: $light-color;
        }        
      }
+     .sidebar-name{
+       font-size: 1.75rem;
+     }
     .auth-sidebar .sidebar-actions{
       margin-top: 1.75rem;
     }
@@ -484,4 +487,10 @@
       align-content: center;
       padding: .5rem .75rem;
     }
+.table-image{
+  width: 80%;
+  max-height: 6rem;
+  text-align: center;
+
+}
 @import 'mobile.scss';

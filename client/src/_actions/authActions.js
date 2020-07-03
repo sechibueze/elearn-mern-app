@@ -60,9 +60,9 @@ export const signup = userData => dispatch => {
       dispatch({ type: LOADED});
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err, SIGNUP_FAIL));
       dispatch({ type: SIGNUP_FAIL });
-      dispatch({ type: LOADED });
+      dispatch(handleResponseErrors(err, 'SIGNUP_ALERT'));
+      // dispatch({ type: LOADED });
     });
 };
 export const login = userData => dispatch => { 
@@ -84,9 +84,9 @@ export const login = userData => dispatch => {
       dispatch({ type: LOADED });
     })
     .catch(err => {
-      dispatch(handleResponseErrors(err, LOGIN_FAIL));
-      dispatch({ type: LOGIN_FAIL });
-      dispatch({ type: LOADED });
+      dispatch(handleResponseErrors(err, 'LOGIN_ALERT'));
+      // dispatch({ type: LOGIN_FAIL });
+      // dispatch({ type: LOADED });
     })
 }
 export const toggleAdminAuth = data => dispatch => { 

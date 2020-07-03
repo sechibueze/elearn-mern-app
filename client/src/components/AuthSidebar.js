@@ -16,22 +16,22 @@ const AuthSidebar = ({
         <label htmlFor="auth-sidebar-control" className="auth-sidebar-close fa fa-close" />
         <header className="sidebar-header">
           <Link to='/'>
-            <span className="sidebar-icon fa fa-lightbulb-o" />
+            <span className="sidebar-icon fa fa-lightbulb-o fa-2x" />
             <span className="sidebar-name"> { APP_NAME} </span>
           </Link>
         </header>
         <ul className="sidebar-actions">
           <li>
-            <Link to='/browse-courses' className="auth-sidebar-link"> <span className="fa fa-clock" /> Courses</Link>
+            <Link to='/browse-courses' className="auth-sidebar-link"> <i className="fa fa-book-open" /> &nbsp;  Courses</Link>
           </li>
           <li>
-            <Link to='/subscriptions' className="auth-sidebar-link"> <span className="fa fa-hourglass" /> Subscriptions</Link>
+            <Link to='/subscriptions' className="auth-sidebar-link"> <span className="fas fa-book-reader" /> &nbsp; Subscriptions</Link>
           </li>
 
           {
             currentUser && currentUser.auth.includes('teacher') && (
               <li>
-                <Link to='/manage-courses' className="auth-sidebar-link" > <span className="fa fa-graduation-cap" /> Course Manager </Link>
+                <Link to='/manage-courses' className="auth-sidebar-link" > <span className="fas fa-chalkboard-teacher" /> &nbsp; Courses Admin </Link>
               </li>
             )
           }
@@ -43,14 +43,14 @@ const AuthSidebar = ({
                   <Link to='/manage-category' className="auth-sidebar-link"> <span className="fa fa-tags" /> Category</Link>
                 </li>
                 <li>
-                  <Link to='/manage-users' className="auth-sidebar-link" > <span className="fa fa-users" /> User Manager </Link>
+                  <Link to='/manage-users' className="auth-sidebar-link" > <span className="fa fa-users" /> Users Admin </Link>
                 </li>
               </Fragment>
             )
           }
                  
           <li>
-            <span onClick={() => logout()} className="auth-sidebar-link"> <span className="fa fa-sign-out" /> Logout</span>           
+            <span onClick={() => logout()} className="auth-sidebar-link"> <span className="fa fa-sign-out-alt" /> Logout</span>           
           </li>
           
         </ul>

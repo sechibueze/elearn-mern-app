@@ -32,7 +32,7 @@ const CreateCategory = ({ createCategory, newCategory, closeModal }) => {
     fd.append('title', categoryData.title);
     fd.append('description', categoryData.description);
     fd.append('category_image', categoryData.category_image);
-    console.log('New Category Info', categoryData)
+    // console.log('New Category Info', categoryData)
     createCategory(fd);
   };
   const {title, description, category_image } = categoryData;
@@ -55,7 +55,7 @@ const CreateCategory = ({ createCategory, newCategory, closeModal }) => {
           <textarea name="description" value={description} onChange={handleChange} placeholder='A short description of this category' className="form-control" cols="25" rows="5" id="description" />
         </div>
 
-        <button type="submit" className="btn btn-success mb-1 btn-sm fa-plus"> &nbsp; Create Category </button>
+        <button type="submit" className="btn btn-success mb-1 btn-sm"> <span className='fa fa-plus' />  &nbsp; Create Category </button>
 
       </form>
     </Fragment>
