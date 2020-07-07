@@ -84,9 +84,9 @@ export const login = userData => dispatch => {
       dispatch({ type: LOADED });
     })
     .catch(err => {
+      dispatch({ type: LOGIN_FAIL });
       dispatch(handleResponseErrors(err, 'LOGIN_ALERT'));
-      // dispatch({ type: LOGIN_FAIL });
-      // dispatch({ type: LOADED });
+   
     })
 }
 export const toggleAdminAuth = data => dispatch => { 

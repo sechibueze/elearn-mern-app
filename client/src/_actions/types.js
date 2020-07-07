@@ -1,5 +1,5 @@
 // http://localhost:3000/manage-category
-export const baseUrl = 'https://okanmuta.herokuapp.com';
+export const baseUrl = process.env.NODE_ENV === 'production' ? 'https://okanmuta.herokuapp.com' : 'http://localhost:8000';
 export const SET_ALERT = 'SET_ALERT';
 export const CLEAR_ALERT = 'CLEAR_ALERT';
 export const LOADING = 'LOADING';

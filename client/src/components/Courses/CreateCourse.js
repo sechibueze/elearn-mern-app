@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createCourse } from '../../_actions/courseActions';
@@ -24,6 +24,7 @@ const CreateCourse = ({
   if(newCourse !== null) return closeModal()
  }, [ newCourse ])
   const handleChange = ({ target }) => {
+    console.log('courseData catId', courseData.categoryId)
     setCourseData(prev => ({
       ...prev,
       [target.name]:target.value
@@ -62,15 +63,21 @@ const CreateCourse = ({
           <label htmlFor="description">Description</label>
           <textarea name="description" onChange={handleChange} value={description} placeholder='Add a brief decription' className="form-control" cols="25" rows="5" id="description"/>
         </div>
+        
+        <div className="form-group">
+          <label htmlFor="categoryId">Category</label>
+          <select name="categoryId" value={categoryId}  onChange={handleChange} className="form-control"
+             >
+
+             <CategoryOptions />
+
+             </select>
+
+            
+        </div>
         <div className="form-group">
           <label htmlFor="price">Price</label>
           <input type="number" name="price" onChange={handleChange} value={ price }  className="form-control" min="0" id="price" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="categoryId">Category</label>
-          <select name="categoryId" value={categoryId}  onChange={handleChange} className="form-control">
-            <CategoryOptions />
-          </select>
         </div>
         <button type="submit" className="btn btn-primary my-1 btn-sm"> <span className='fa fa-plus' />  &nbsp; Add Course </button>
         

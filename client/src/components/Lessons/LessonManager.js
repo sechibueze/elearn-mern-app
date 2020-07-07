@@ -58,6 +58,10 @@ const LessonManager = ({
       previewLessonId: lessonId
     }))
   }
+  const closeLessonCreation = () => {
+    clearLessonData();
+    setAddLessonVisibility(false)
+  }
   const closeLessonUpdate = () => {
     clearLessonData();
     setUpdateLessonVisibility(prev => ({
@@ -91,8 +95,8 @@ const LessonManager = ({
         <h1> Lesson Manager   </h1>
         {
           addLessonVisibility && (
-            <Modal title='Ádd Lesson' isOpen={addLessonVisibility} closeModal={() => setAddLessonVisibility(false)}>
-              <AddLesson courseId={courseId} closeModal={() => setAddLessonVisibility(false)} />
+            <Modal title='Ádd Lesson' isOpen={addLessonVisibility} closeModal={() => closeLessonCreation()}>
+              <AddLesson courseId={courseId} closeModal={() => closeLessonCreation()} />
             </Modal>
           )
         }

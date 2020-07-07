@@ -22,8 +22,8 @@ const Subscriptions = ({
       <AuthContainer>
       
         <div className="container">
-          {/* flex-wrapper course-card-flex-wrapper */}
-          <div clasName="flex-wrapper course-card-flex-wrapper">
+         
+          <div className="flex-wrapper">
             {
               subscriptions.length > 0 ?
                 subscriptions.map(subCourse => (

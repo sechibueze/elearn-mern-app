@@ -29,7 +29,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
       <div className="container">
         <form className="form" onSubmit={handleLogin} name="login-form" id="login-form">
           
-          <h2 className="text-lead"> <span className='fa fa-sign-in' />  &nbsp; Login</h2>
+          <h2 className="text-lead"> <span className='fa fa-sign-in-alt' />  &nbsp; Login</h2>
           <p className="text-sub">Login to see what others are learning</p>
           <sup>*</sup> means Required
 
@@ -49,7 +49,7 @@ const Login = ({ login, setAlert, isAuthenticated }) => {
 
 
 
-          <button type="submit" id="login-btn" className="btn btn-primary btn-md "> <span className='fa fa-sign-in' />  &nbsp; Login </button>
+          <button type="submit" id="login-btn" className="btn btn-primary btn-md "> <span className='fa fa-sign-in-alt' />  &nbsp; Login </button>
 
           <p className="my-2">Don't have an account? <Link to="/signup">Signup</Link> </p>
         </form>

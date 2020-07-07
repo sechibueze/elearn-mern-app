@@ -29,13 +29,13 @@ const AddLesson = ({ courseId, addLesoon, newLesson, closeModal }) => {
   }
   const handleAddLesson = e => {
     e.preventDefault();
-    const fd = new FormData();
-    fd.append('title', lessonData.title);
-    fd.append('type', lessonData.type);
-    fd.append('access', lessonData.access);
-    fd.append('content', lessonData.content);
-    fd.append('note', lessonData.note); 
-    addLesoon(courseId, fd);
+    // const fd = new FormData();
+    // fd.append('title', lessonData.title);
+    // fd.append('type', lessonData.type);
+    // fd.append('access', lessonData.access);
+    // fd.append('content', lessonData.content);
+    // fd.append('note', lessonData.note); 
+    addLesoon(courseId, lessonData);
   }
   const {title, type, access, content, note } = lessonData;
   const textInput = (
@@ -74,13 +74,17 @@ const AddLesson = ({ courseId, addLesoon, newLesson, closeModal }) => {
           id="title"
         />
         </div>
+        
+        
 
         <div className="form-group">
           <label htmlFor="type">Type</label>
           <select name="type" value={type} onChange={handleChange} className="form-control" id="type">
-            <option value="video">Video</option>
-            <option value="file">File</option>
-            <option value="link">Link</option>
+            <option value=""> --- Choose resource type --- </option>
+            <option value="yt-video"> YouTube Video Link</option>
+            <option value="video-link"> Video Link</option>
+            <option value="downloadable"> Downloadable resource </option>
+            <option value="image">Image resource </option>
           </select>
         </div>
 
@@ -94,7 +98,14 @@ const AddLesson = ({ courseId, addLesoon, newLesson, closeModal }) => {
 
         <div className="form-group">
           <label htmlFor="content">Content</label>
-          {renderContentInput}
+          <input 
+          type="text"
+          name="content" 
+          onChange={handleChange} 
+          value={content} 
+          className="form-control my-1" 
+          id="content"
+        />
         </div>
 
         <div className="form-group">

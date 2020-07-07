@@ -13,9 +13,8 @@ const Features = () => {
               <span className="card-image fa fa-graduation-cap fa-2x"></span>
               <p className="card-title">Upskill</p>
               <div className="card-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores id facere laboriosam quis dolore assumenda
-                ipsum quos, fugit similique, optio repellendus ut eum aut minus corrupti praesentium facilis odit nemo.
-
+                No matter what you do, there will always be a course for you. No better time to upskill 
+                than now. Sign up and subscribe to courses from excited and passionate instructors.
               </div>
               <div className="card-footer">
 
@@ -24,12 +23,11 @@ const Features = () => {
 
             
             <div className="card">
-              <span className="card-image fa fa-check-circle fa-2x"></span>
+              <span className="card-image fas fa-award fa-2x"></span>
               <p className="card-title">Get certified</p>
               <div className="card-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores id facere laboriosam quis dolore assumenda
-                ipsum quos, fugit similique, optio repellendus ut eum aut minus corrupti praesentium facilis odit nemo.
-
+                Use our widely recognized certificate to document your new skills, share with your friend on 
+                social media or negotiate for higher pay with your boss.
               </div>
               <div className="card-footer">
 
@@ -38,12 +36,11 @@ const Features = () => {
 
             
             <div className="card">
-              <span className="card-image fa fa-gear fa-2x"></span>
+              <span className="card-image fas fa-bell fa-2x"></span>
               <p className="card-title">Anytime, Anywhere</p>
               <div className="card-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores id facere laboriosam quis dolore assumenda
-                ipsum quos, fugit similique, optio repellendus ut eum aut minus corrupti praesentium facilis odit nemo.
-
+                Your time is yours. Be your own boss. Subscribe to courses that you love and start learning
+                at your pace. 
               </div>
               <div className="card-footer">
 

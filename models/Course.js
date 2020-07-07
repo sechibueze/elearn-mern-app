@@ -36,7 +36,6 @@ const CourseSchema = new Schema({
     type: {
       type: String,
       require: true,
-      default: 'video'
     },
     access: {
       type: String,

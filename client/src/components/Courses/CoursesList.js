@@ -34,7 +34,7 @@ const CoursesList = ({
       courseInfoId: courseId
     })
   }
-  // const toggleCourseVisibility = courseId => {}
+  
   const handleCourseUpdate = courseId => {
     setCourseUpdateVisibility({
       isOpen: true,
@@ -117,7 +117,7 @@ const CoursesList = ({
                       <td> {course.title} </td>
                       <td> {course.description.slice(0, 25)} </td>
                       <td> {course.userId.name} </td>
-                      <td> {course.categoryId.title} </td>
+                      <td> { course.categoryId && course.categoryId.title} </td>
                       <td> {course.lessons.length} </td>
                       <td> {course.subscriptions.length} </td>
                       <td> {course.price === 'free' ? 0 : course.price} </td>

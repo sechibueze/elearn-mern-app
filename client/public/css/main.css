@@ -31,8 +31,17 @@ img, video {
 
 .flex-wrapper {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-content: center;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 640px) {
+  .flex-wrapper {
+    display: block;
+    margin: auto;
+    width: 100%;
+  }
 }
 
 .grid-wrapper {
@@ -58,12 +67,23 @@ img, video {
   background-color: #fff;
   box-shadow: 0px 2px 4px #ccc;
   margin: 0.75rem 0.25rem;
+  flex-basis: content;
+  width: 32%;
+}
+@media screen and (max-width: 760px) {
+  .card {
+    width: 100%;
+    display: block;
+  }
 }
 .card .card-image {
   text-align: center;
-  width: 100%;
+  width: 60%;
+  display: block;
+  margin: auto;
   margin-bottom: 0.75rem;
   color: darkblue;
+  max-height: 10rem;
 }
 .card .card-title {
   font-size: 1.2rem;
@@ -75,6 +95,27 @@ img, video {
 .card .card-content {
   text-align: left;
   margin: 1rem auto;
+  text-align: center;
+}
+.card .card-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+}
+.card .card-meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  margin: 0.75rem auto;
+}
+.card .card-cta {
+  display: block;
+  margin: 1rem auto;
+  width: 80%;
+  text-align: center;
+  padding: 0.75rem 1rem;
 }
 
 .credit {
@@ -446,8 +487,7 @@ table.table tbody td {
 
 .banner {
   width: 100%;
-  height: 80vh;
-  max-height: 80vh;
+  height: 90vh;
   position: relative;
   background-image: url(/img/learning.jpg);
   background-position: center;
@@ -472,7 +512,7 @@ table.table tbody td {
 .banner .overlay .banner-content {
   text-align: left;
   color: #f4f4f4;
-  padding: 1.75rem 1rem;
+  padding: 0.75rem 1rem;
 }
 .banner .overlay .banner-action-buttons {
   text-align: center;
@@ -504,6 +544,11 @@ table.table tbody td {
 #signup-form, #login-form {
   display: block;
   width: 75%;
+}
+@media (max-width: 480px) {
+  #signup-form, #login-form {
+    width: 100%;
+  }
 }
 #signup-form input, #login-form input {
   border: 1px solid #ccc;
@@ -542,6 +587,13 @@ table.table tbody td {
   text-decoration: line-through;
 }
 .course-card-flex-wrapper .course-card-cta .buynow-btn, .course-card-flex-wrapper .course-card-cta .add2cart-btn {
+  display: block;
+  margin: 1rem auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+.course-card-cta * {
   display: block;
   margin: 1rem auto;
   text-align: center;
@@ -648,6 +700,39 @@ table.table tbody td {
 
 .btn-md {
   padding: 1rem 1.5rem;
+}
+
+.course-info-icon {
+  display: block;
+  margin: 0.5rem auto;
+  width: 60%;
+  text-align: center;
+}
+@media screen and (max-width: 640px) {
+  .course-info-icon {
+    width: 100%;
+  }
+}
+.course-info-title, .course-info-content {
+  display: block;
+  margin: 0.5rem auto;
+  text-align: left;
+}
+.course-info-actions * {
+  text-align: center;
+}
+.course-info-meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.course-info-meta .meta-item {
+  flex-basis: content;
+  margin: 0.5rem;
+  padding: 0.25rem;
+  color: darkblue;
 }
 
 .auth-container {

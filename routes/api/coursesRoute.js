@@ -31,7 +31,7 @@ const {
 router.post('/', checkAuth, checkTeacher, uploads.single('courseImage'), [
   check('title', 'Title is required').notEmpty(),
   check('description', 'Description is required').notEmpty(),
-  check('categoryId', 'Category is required').notEmpty(),
+  check('categoryId', 'Category is required').notEmpty()
 ],  createCourse);
 
 /**
@@ -99,14 +99,23 @@ router.delete('/:courseId', checkAuth, checkTeacher, deleteCourseById);
  * @desc POST Add lesson to course
  * @access private
  */
-router.post('/:courseId', checkAuth, checkTeacher, uploads.single('content'), addLesson);
+router.post('/:courseId', 
+//  uploads.single('content'), 
+[
+  check('title', 'Title is required').notEmpty(),
+  check('content', 'Lesson Content URL is required').notEmpty()
+  // check('', 'Category is required').notEmpty(),
+], checkAuth, checkTeacher,
+ addLesson);
 
 /**
  * @route PUT /api/courses/:courseId/lessons/:lessonId
  * @desc Edit a Lesson
  * @access private
  */
-router.put('/:courseId/lessons/:lessonId', checkAuth, checkTeacher, uploads.single('content'),editlessonById);
+router.put('/:courseId/lessons/:lessonId', checkAuth, checkTeacher,
+//  uploads.single('content'),
+ editlessonById);
 
 /**
  * @route GET /api/courses/:courseId/lessons/:lessonId

@@ -18,37 +18,37 @@ const CourseCard = ({ course, isAuthenticated, currentUser, subscribeUserToCours
   }
   return (
     <Fragment>
-      <div className="card course-card">
+      <div className="card">
         <img src={courseImage.courseImageUrl} alt={`${ title } visual`} className="card-image" />
         <p className="card-title"> { title && title} </p>
         <div className="card-content">
-          { description && description }
+          { description && description.slice(0, 100) }
+        </div>
+          <h3 className='text-sub'> <sup>N</sup> {price === 'free' ? 0 : price } </h3>
+        <div className='card-meta'>
+          <span className="fa fa-tags">  { categoryId.title } </span>
+
         </div>
         <div className="card-footer">
-          <span className="fa fa-tags">  { categoryId.title } </span>
-          <h3 className='text-sub'> <sup>N</sup> {price === 'free' ? 0 : price } </h3>
-          <div className="course-card-cta">
-            {/* <span onClick={() => addCourseToCart(productItem)} className="add2cart-btn btn-primary"> <span className="fa fa-cart-plus" /> Add to cart </span> */}
-            
+         
             {
               isAuthenticated ? (                
                 <Fragment>
-                  <span onClick={() => handleSubscription(_id)} className="add2cart-btn btn-primary"> <span className="fa fa-cart-plus" /> { isEnrolled(subscriptions, currentUser._id) ? 'Unsubscribe' : 'Subscribe'}  </span>
+                  <span onClick={() => handleSubscription(_id)} className="card-cta btn-primary"> <span className="fas fa-book-reader" /> { isEnrolled(subscriptions, currentUser._id) ? 'Unsubscribe' : 'Subscribe'}  </span>
                 </Fragment>
 
-              ) : (
-                
-                <Link to={`/courses/${_id}`} className="fa fa-eye buynow-btn btn-dark"> &nbsp; View Course</Link>
-              )
-            }
+              ) : null
+              }
+
+            <Link to={`/courses/${_id}`} className="fa fa-eye card-cta btn-dark"> &nbsp; View Course</Link>
             {
               isAuthenticated && isEnrolled(subscriptions, currentUser._id) && (
                 
-                <Link to={`/classroom/${_id}/lessons`} className="fa fa-user buynow-btn btn-dark"> &nbsp; Classroom </Link>
+                <Link to={`/classroom/${_id}/lessons`} className="fas fa-chalkboard-teacher card-cta btn-dark"> &nbsp; Classroom </Link>
               )
             }
             
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </Fragment>

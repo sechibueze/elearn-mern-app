@@ -9,11 +9,11 @@ const Banner = () => {
           <div className="banner-content">
             <h1 className="text-lead"> { APP_NAME} </h1>
             <p className="text-sub">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio maxime minima, quae blanditiis saepe
-              officiis temporibus non. Quas exercitationem excepturi assumenda non ducimus repellat officiis ad vel unde
-              itaque
-
-        </p>
+              We believe that learning should be fun and meaningful. Okanmuta - maximized learning is an e-learning solution that connects educators to their 
+              learners. Students gain impressive skills through expert-led demonstrations, open
+              discussions and hands-on projects to stand out. Okanmuta is changing the way educators and learners collaborate 
+              to achieve success.
+            </p>
           </div>
           <div className="banner-action-buttons">
             <Link to="/signup" className="btn btn-primary fa fa-users"> &nbsp; Signup</Link>

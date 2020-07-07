@@ -24,7 +24,7 @@ const CoursesAdmin = ({
  
   useEffect(() => {
     
-    // Load all for admin but filter for teacher
+    // Load all courses for admin but filter for teacher
     let filter = !currentUser.auth.includes('admin') ? { userId: currentUser._id} : null;
     loadCourses(filter);
   }, [

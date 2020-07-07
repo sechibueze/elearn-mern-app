@@ -55,8 +55,15 @@ img, video{
 
 .flex-wrapper{
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-content: center;
+  flex-wrap: wrap;
+  @media screen and (max-width: 640px) {
+    display: block;
+    margin: auto;
+    width: 100%;
+  }
 }
 .grid-wrapper{
   display: grid;
@@ -81,11 +88,20 @@ img, video{
   background-color: #fff;
   box-shadow: 0px 2px 4px #ccc;
   margin: .75rem .25rem;
+  flex-basis: content;
+  width: 32%;
+  @media screen and (max-width: 760px) {
+    width: 100%;
+    display: block;
+  }
   .card-image{
     text-align: center;
-    width: 100%;
+    width: 60%;
+    display: block;
+    margin: auto;
     margin-bottom: .75rem;
     color: $primary-color;
+    max-height: 10rem;
   }
   .card-title{
     font-size: 1.2rem;
@@ -97,6 +113,29 @@ img, video{
   .card-content{
     text-align: left;
     margin: 1rem auto;
+    text-align: center;
+  }
+  .card-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+  }
+
+  .card-meta{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+    margin: .75rem auto;
+  }
+
+  .card-cta{
+    display: block;
+    margin: 1rem auto;
+    width: 80%;
+    text-align: center;
+    padding: .75rem 1rem;
   }
 
 }

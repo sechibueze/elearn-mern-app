@@ -2,14 +2,18 @@ import React, { Fragment, useState } from 'react';
 
 const ClassroomLessons = ({ courseInfo }) => {
   
-  const [currentLessonUrl, setCurrentLessonUrl] = useState('http://res.cloudinary.com/sechibueze/image/upload/v1590973470/znjpekxghyltx1gllon6.png');
+  const [currentLessonUrl, setCurrentLessonUrl] = useState('https://www.youtube.com/embed/Xj1ASC-TlsI');
   
   const { _id, title, courseImage, lessons  } = courseInfo;
   return ( 
     <Fragment>
             <div className="classroom-wrapper">
         <header className="header">
-          <video className="video-player" controls  alt='video photos fro class' src={currentLessonUrl} />
+          {/* https://youtu.be/Xj1ASC-TlsI
+          <iframe width="449" height="150" src="https://www.youtube.com/embed/Xj1ASC-TlsI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+          <iframe className="video-player" width="449" height="150" src={currentLessonUrl} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+          {/* <iframe  src={ currentLessonUrl } scrolling="no" frameborder="0"> </iframe> */}
+          {/* <video className="video-player" controls  alt='video photos fro class' src={currentLessonUrl} /> */}
           <h3 className="bg-dark course-title">
             {  title && title }
           </h3>
@@ -22,7 +26,7 @@ const ClassroomLessons = ({ courseInfo }) => {
         </header>
         <div className="lesson-playlist">
           {lessons.map((lesson, idx) => (
-            <div key={lesson._id} onClick={() => setCurrentLessonUrl(lesson.content.contentUrl)} className="lesson-item" data-lesson={lesson.content.contentUrl}>
+            <div key={lesson._id} onClick={() => setCurrentLessonUrl(lesson.content)} className="lesson-item" data-lesson={lesson.content.contentUrl}>
               <div className="lesson-item-content">
                 <span className="lesson-id"> {++idx} </span>
                 <h3 className="lesson-title">

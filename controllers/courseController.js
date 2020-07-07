@@ -175,10 +175,10 @@ const toggleCourseVisibility = (req, res) => {
   if (!auth.includes('admin')) {
     filter.userId = currentUserId;
   }
-  console.log('setting course visibility filter', filter);
+  // console.log('setting course visibility filter', filter);
   Course.findOne(filter)
     .then(courseItem => {
-      console.log('setting course visibility course', courseItem);
+      // console.log('setting course visibility course', courseItem);
       if (!courseItem) return res.status(400).json({ status: false, error: 'The requested course was not found' });
 
       // User can only edit his course
@@ -304,6 +304,11 @@ const getCourseSubscriptionByUserId = (req, res) => {
   };
   // console.log('course subscibers', currentUserId)
   Course.find(filter)
+    .populate({
+      path: 'categoryId',
+      select: ['title'],
+      model: Category
+    })
     .then(courseItem => {
      
         return res.status(200).json({
@@ -320,10 +325,19 @@ const getCourseSubscriptionByUserId = (req, res) => {
     })
 };
 const addLesson = (req, res) => {
+
   const courseId = req.params.courseId;
-  const lessonLink = getDataURI(req) || req.body.content;
   const currentUserId = req.authUser.id;
-  console.log('lessonlink to be added', lessonLink)
+  const errorContainer = validationResult(req);
+  if (!errorContainer.isEmpty()) {
+    return res.status(422).json({
+      status: false,
+      errors: errorContainer.errors.map(err => err.msg)
+    });
+  }
+  // const lessonLink = getDataURI(req) || req.body.content;
+  const lessonLink =  req.body.content; // || getDataURI(req) ;
+  // console.log('lessonlink to be added', req.body)
   // TODO : edit
   // Find the course
   // Confirm the course exists
@@ -333,25 +347,23 @@ const addLesson = (req, res) => {
   // Save back
       Course.findOne({ _id: courseId })
         .then(courseItem => {
-          if (!courseItem) return res.status(400).json({ status: false, error: 'The course you requested does not exist' });
-          // CourseItem was found
-          console.log('courseItem was found ')
+          if (!courseItem) return res.status(400).json({ status: false, error: 'The course you requested does not exist' });         console.log('courseItem was found ')
           if (courseItem.userId.toString() !== currentUserId) return res.status(400).json({ status: false, error: 'You can only add lessons to the courses you created' });
         //  course is added by course creator
           console.log('courseItem has right owner ')
-          cloudinaryUploader.upload(lessonLink) // , { resource_type: "video" }
-            .then(result => {
-              let content = {};
-              content.publicId = result.public_id;
-              content.contentUrl = result.secure_url;
-              let lessonItem = { content };
-              const {title, type, access, note } = req.body;
-              if (title) lessonItem.title = title;
+          // cloudinaryUploader.upload(lessonLink, { resource_type: "video" }) // , { resource_type: "video" }
+          //   .then(result => {
+              // let content = {};
+              // content.publicId = result.public_id;
+              // content.contentUrl = result.secure_url;
+              const {  title, content, type, access, note } = req.body;
+              let lessonItem = { title, content };
+              // if (title) lessonItem.title = title;
               if (type) lessonItem.type = type;
               if (access) lessonItem.access = access;
               if (note) lessonItem.note = note;
               courseItem.lessons.unshift(lessonItem);
-              console.log('çourse item lessons::', courseItem.lessons)
+              // console.log('çourse item lessons::', courseItem.lessons)
               courseItem.save(err => {
                 if (err) return res.status(500).json({ status: false, error: 'Could not save lesson courses' });
 
@@ -361,11 +373,11 @@ const addLesson = (req, res) => {
                   data: courseItem
                 });
               });
-            })
-            .catch(err => {
-              console.log('Uploade error ', err)
-              return res.status(500).json({ status: false, error: 'Server error:: Could not upload lesson courses' });
-            }) 
+            // })
+            // .catch(err => {
+            //   console.log('Uploade error ', err)
+            //   return res.status(500).json({ status: false, error: 'Server error:: Could not upload lesson courses' });
+            // }) 
          
         })
         .catch(err => {
@@ -418,7 +430,7 @@ const editlessonById = async (req, res) => {
 
       const { type, access, title, content, note } = req.body;
       // if (note) lessonItem.note = note;
-      let canUpdateContentData = getDataURI(req) || content;
+      // let canUpdateContentData = getDataURI(req) || content;
       // console.log('can update', canUpdateContentData)//undefined
       courseItem.lessons.map(async (lessonItem) => {
         if (lessonItem._id.toString() === lessonId) {
@@ -426,11 +438,12 @@ const editlessonById = async (req, res) => {
           if (access) lessonItem.access = access;
           if (note) lessonItem.note = note;
           if (title) lessonItem.title = title;
-          if (canUpdateContentData) {
-            const result = await updateCloudinaryMediaContent(lessonItem.content.publicId, canUpdateContentData)
-            const contentUrl = result.secure_url;
-            lessonItem.content.lessonUrl = contentUrl;
-          }
+          if (content) lessonItem.content = content;
+          // if (canUpdateContentData) {
+          //   const result = await updateCloudinaryMediaContent(lessonItem.content.publicId, canUpdateContentData)
+          //   const contentUrl = result.secure_url;
+          //   lessonItem.content.lessonUrl = contentUrl;
+          // }
           
         }
       });

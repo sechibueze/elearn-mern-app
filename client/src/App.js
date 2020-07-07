@@ -29,6 +29,7 @@ import Subscriptions from './components/Dashboard/Subscriptions';
 import Classroom from './components/Classroom/Classroom';
 
 import Users from './components/Users/Users';
+import Footer from './components/Footer';
 
 // import ShoppingCart from './components/Cart/ShoppingCart';
 store.dispatch(loadCurrentUser());
@@ -64,8 +65,7 @@ const App = ()  => {
           <Authenticate path='/manage-courses' exact component={CoursesAdmin} />
           <Authenticate path='/manage-lessons/:courseId' exact component={LessonManager} />
 
-          {/*
-          <Route path='/cart' exact component={ShoppingCart} /> */}
+          <Footer />
 
      
        </Router>

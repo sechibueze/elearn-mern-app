@@ -26,42 +26,40 @@ const ShowCourseInfo = ({
   return (  
     <Fragment>
       <div className="container">
-        <div className="course-item">
-          <div className="course-intro">
-            <img className="video-player" alt={`${ title } media`} src={ courseImage && courseImage.courseImageUrl } />
-          </div>
-
-          {
-            isAuthenticated && isEnrolled(subscriptions, currentUser._id) && (
-              <Link to={`/classroom/${_id}/lessons`} className="fa fa-user btn btn-primary btn-md btn-block"> &nbsp; Classroom </Link>              
-            )             
-          } 
-
-          {
-            isAuthenticated && !isEnrolled(subscriptions, currentUser._id) && (
-
-              <span onClick={() => handleSubscription(_id)} className="btn btn-primary btn-md btn-block"> <span className="fa fa-cart-plus" /> { isEnrolled(subscriptions, currentUser._id) ? 'Unsubscribe' : 'Subscribe'}  </span>
-            )
-          }
+        <div className="course-info">
+          <img className="course-info-icon" style={{maxHeight: '15rem'}} alt={`${ title } media`} src={ courseImage && courseImage.courseImageUrl } />
         
-          {
-            !isAuthenticated && (
-               <Link to={`/login`} className="btn btn-primary btn-md btn-block"> Login to start learning </Link>
-            )
-          }
+          <div className='course-info-actions'>
+
+            {
+              isAuthenticated && isEnrolled(subscriptions, currentUser._id) && (
+                <Link to={`/classroom/${_id}/lessons`} className="fas fa-chalkboard-teacher btn btn-primary btn-md btn-block"> &nbsp; Classroom </Link>              
+              )             
+            } 
+
+            {
+              isAuthenticated && !isEnrolled(subscriptions, currentUser._id) && (
+
+                <span onClick={() => handleSubscription(_id)} className="btn btn-primary btn-md btn-block"> <span className="fas fa-book-reader" /> { isEnrolled(subscriptions, currentUser._id) ? 'Unsubscribe' : 'Subscribe'}  </span>
+              )
+            }
           
-       
-          
-          <div className="course-overview card">
-            <h3 className="card-title"> { title && title} </h3>
-            <article className="card-content">
-              { description }
-            </article>
-          </div>
-          <div className="course-data card">
-            <span title='Number of learners' className="fa fa-users">&nbsp; { subscriptions && subscriptions.length } </span>
-            <span title='Number of lesson contents' className="fa fa-graduation-cap">&nbsp; { lessons && lessons.length} </span>
-            <span title='Course categories' className="fa fa-tags">&nbsp; { categoryId && categoryId.title } </span>
+            {
+              !isAuthenticated && (
+                <Link to={`/login`} className="btn btn-primary btn-md btn-block"> Login to start learning </Link>
+              )
+            }
+          </div>   
+         
+          <h3 className="course-info-title"> { title && title} </h3>
+          <article className="course-info-content">
+            { description }
+          </article>
+      
+          <div className="course-info-meta">
+            <span title='Number of learners' className="meta-item fa fa-users">&nbsp; { subscriptions && subscriptions.length } </span>
+            <span title='Number of lesson contents' className="meta-item fa fa-graduation-cap">&nbsp; { lessons && lessons.length} </span>
+            <span title='Course categories' className="meta-item fa fa-tags">&nbsp; { categoryId && categoryId.title } </span>
           </div>
 
           <TeacherCard teacher={userId} />

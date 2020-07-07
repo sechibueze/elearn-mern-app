@@ -10,7 +10,7 @@ const CategoryItem = ({category}) => {
         <img src={image.imageUrl} className="card-image" alt={`${ image.publicId }`}/>
         <p className="card-title"> {title} </p>
         <div className="card-content">
-          { description }
+          { description && description.slice(0, 100) }
         </div>
         <div className="card-footer">         
           <div className="course-card-cta">

@@ -4,8 +4,6 @@ import CourseCard from './CourseCard';
 
 const CourseItems = ({coursesList, sectionTitle }) => {
 
-  
-  // if(loading && userCourses.length === 0) return <Loader />
   return (
     <Fragment>
       <div className="container">

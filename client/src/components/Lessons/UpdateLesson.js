@@ -5,6 +5,7 @@ import { getLessonItem, updateLesson } from '../../_actions/courseActions';
 
 import Alert from '../Alert';
 const UpdateLesson = ({ 
+  loading,
   courseId, 
   lessonId,
   updateLesson, 
@@ -14,7 +15,7 @@ const UpdateLesson = ({
   closeModal 
 }) => {
   const [lessonData, setLessonData] = useState({
-    title: lessonItem ? lessonItem.title : '',
+    title: loading || !lessonItem ? '' : lessonItem.title ,//: '',
     type: '',
     access: '',
     content: '',
@@ -33,44 +34,19 @@ const UpdateLesson = ({
       [target.name]:target.value
     }))
   }
-  const handleSelectedFile = ({ target}) => {
-    setLessonData(prev => ({
-      ...prev,
-      [target.name]:target.files[0]
-    }))
-  }
+  // const handleSelectedFile = ({ target}) => {
+  //   setLessonData(prev => ({
+  //     ...prev,
+  //     [target.name]:target.files[0]
+  //   }))
+  // }
   const handleAddLesson = e => {
     e.preventDefault();
-    const fd = new FormData();
-    fd.append('title', lessonData.title);
-    fd.append('type', lessonData.type);
-    fd.append('access', lessonData.access);
-    fd.append('content', lessonData.content);
-    fd.append('note', lessonData.note); 
-    updateLesson(courseId, lessonId, fd);
+    
+    updateLesson(courseId, lessonId, lessonData);
   }
   const {title, type, access, content, note } = lessonData;
-  const textInput = (
-    <input 
-      type="text"
-      name="content" 
-      onChange={handleChange} 
-      value={content} 
-      className="form-control my-1" 
-      id="content"
-    />);
-  const fileInput = (
-    <input 
-      type="file"
-      name="content" 
-      onChange={handleSelectedFile} 
-      className="form-control my-1" 
-      id="content"
-    />);
-  const renderContentInput = lessonData.type === 'file' ? 
-    (fileInput) :
-    (textInput);
-  
+ 
   return (
     <Fragment>
       <form className="form" onSubmit={handleAddLesson} encType="multipart/form-data">
@@ -90,9 +66,11 @@ const UpdateLesson = ({
         <div className="form-group">
           <label htmlFor="type">Type</label>
           <select name="type" value={type} onChange={handleChange} className="form-control" id="type">
-            <option value="video">Video</option>
-            <option value="file">File</option>
-            <option value="link">Link</option>
+            <option value=""> --- Choose resource type --- </option>
+            <option value="yt-video"> YouTube Video Link</option>
+            <option value="video-link"> Video Link</option>
+            <option value="downloadable"> Downloadable resource </option>
+            <option value="image">Image resource </option>
           </select>
         </div>
 
@@ -106,7 +84,14 @@ const UpdateLesson = ({
 
         <div className="form-group">
           <label htmlFor="content">Content</label>
-          {renderContentInput}
+          <input 
+            type="text"
+            name="content" 
+            onChange={handleChange} 
+            value={content} 
+            className="form-control my-1" 
+            id="content"
+          />
         </div>
 
         <div className="form-group">
@@ -128,7 +113,8 @@ UpdateLesson.propTypes = {
 };
 const mapStateToProps = state => ({
   lessonUpdate: state.courses.lessonUpdate,
-  lessonItem: state.courses.lessonItem
+  lessonItem: state.courses.lessonItem,
+  loading: state.auth.loading
 
 });
 export default connect(mapStateToProps, { getLessonItem,  updateLesson })(UpdateLesson);

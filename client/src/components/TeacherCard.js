@@ -8,7 +8,7 @@ const TeacherCard = ({ teacher }) => {
         <img className="person" src={ avartar && avartar} alt={`${ name } - image`} />
         <div className="message">
           { name && name }
-          <Link className="btn btn-success btn-block btn-sm" to={`/profiles/${_id}`}> View Profile</Link>
+          <span className="btn btn-success btn-block btn-sm" to={`/profiles/${_id}`}> View Profile</span>
         </div>
       </div>
     </Fragment>

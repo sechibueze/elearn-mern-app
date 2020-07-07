@@ -9,7 +9,7 @@ const Navbar = ({ logout, isAuthenticated, cartItems }) => {
   const guestLink = (
     <Fragment>
       <Link to="/signup" className="navlink fa fa-users"> &nbsp; Signup</Link>
-      <Link to="/login" className="navlink fa fa-sign-in"> &nbsp; Login</Link>
+      <Link to="/login" className="navlink fa fa-sign-in-alt"> &nbsp; Login</Link>
     </Fragment>
   );
   const authLinks = (
@@ -30,7 +30,7 @@ const Navbar = ({ logout, isAuthenticated, cartItems }) => {
           <div className="navlinks show">
             <Link to="/courses" className="navlink fa fa-book-open"> &nbsp; Courses</Link>
             <Link to="/category" className="navlink fa fa-list-alt"> &nbsp; Category</Link>
-            {/* <Link to="/cart" className="navlink fa fa-cart-plus">  &nbsp; Cart <sup> {cartItems && cartItems.length > 0 && cartItems.length} </sup> </Link> */}
+  
             {isAuthenticated ? authLinks : guestLink }
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { baseUrl } from '../_actions/types';
@@ -20,7 +20,7 @@ const CategoryOptions = ({
   return ( 
           <Fragment>
 
-            <option value='' key={1}>  Choose Category </option>
+            <option value='' selected key={1}>  Choose Category </option>
             {
               category.length > 0  && category.map((cat, idx) => (
                       <option key={idx} value={ cat._id}> { cat.title } </option>
